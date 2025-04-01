@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -6,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 
 export default function Home() {
@@ -57,7 +57,11 @@ export default function Home() {
                   </SelectItem>
                 </SelectContent>
               </Select>
-              <Button type="submit" size="lg" className="h-10 px-6 rounded-full">
+              <Button
+                type="submit"
+                size="lg"
+                className="h-10 rounded-full px-6"
+              >
                 Search
               </Button>
             </form>
