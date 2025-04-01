@@ -1,4 +1,13 @@
-import Image from "next/image";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
 
 export default function Home() {
   return (
@@ -23,6 +32,35 @@ export default function Home() {
                 <span className="text-right whitespace-nowrap">TIME ZONE</span>
               </div>
             </h1>
+            <form className="bg-background/80 mt-8 flex w-full items-center gap-4 rounded-full border p-1 shadow-lg backdrop-blur-sm">
+              <div className="relative flex-1">
+                <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+                <Input
+                  type="text"
+                  placeholder="Search jobs by title, category, or company..."
+                  className="h-10 border-0 pl-9 text-base shadow-none focus-visible:ring-0"
+                />
+              </div>
+              <div className="bg-border h-8 w-px" />
+              <Select>
+                <SelectTrigger className="h-10 w-[200px] border-0 shadow-none focus:ring-0">
+                  <SelectValue placeholder="Select timezone" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="pst">Pacific Time (PT)</SelectItem>
+                  <SelectItem value="mst">Mountain Time (MT)</SelectItem>
+                  <SelectItem value="cst">Central Time (CT)</SelectItem>
+                  <SelectItem value="est">Eastern Time (ET)</SelectItem>
+                  <SelectItem value="gmt">GMT</SelectItem>
+                  <SelectItem value="cet">
+                    Central European Time (CET)
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+              <Button type="submit" size="lg" className="h-10 px-6 rounded-full">
+                Search
+              </Button>
+            </form>
           </div>
         </div>
       </section>
