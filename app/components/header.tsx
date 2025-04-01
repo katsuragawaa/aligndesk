@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { Layout } from "lucide-react";
 
 export default function Header() {
   return (
     <header className="w-full">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center gap-2">
+          <Layout className="h-6 w-6" />
           <span className="after:bg-primary relative text-xl font-bold after:absolute after:right-0 after:bottom-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full">
             AlignDesk
           </span>
