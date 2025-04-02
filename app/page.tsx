@@ -1,15 +1,50 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Search } from "lucide-react";
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Search, Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+
+const timezones = [
+  { value: "pst", label: "Pacific Time (PT)" },
+  { value: "mst", label: "Mountain Time (MT)" },
+  { value: "cst", label: "Central Time (CT)" },
+  { value: "est", label: "Eastern Time (ET)" },
+  { value: "gmt", label: "GMT" },
+  { value: "cet", label: "Central European Time (CET)" },
+  { value: "eet", label: "Eastern European Time (EET)" },
+  { value: "aest", label: "Australian Eastern Time (AEST)" },
+  { value: "jst", label: "Japan Standard Time (JST)" },
+  { value: "sgt", label: "Singapore Time (SGT)" },
+  { value: "hkt", label: "Hong Kong Time (HKT)" },
+  { value: "ist", label: "India Standard Time (IST)" },
+  { value: "nzt", label: "New Zealand Standard Time (NZST)" },
+  { value: "brt", label: "Brasília Time (BRT)" },
+  { value: "cat", label: "Central African Time (CAT)" },
+  { value: "wast", label: "West Africa Standard Time (WAST)" },
+  { value: "eat", label: "East Africa Time (EAT)" },
+  { value: "msk", label: "Moscow Standard Time (MSK)" },
+  { value: "kst", label: "Korea Standard Time (KST)" },
+  { value: "cst", label: "China Standard Time (CST)" },
+];
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+
   return (
     <div className="min-h-screen">
       <section className="grid min-h-[calc(100vh-4rem)] items-start">
@@ -42,21 +77,47 @@ export default function Home() {
                 />
               </div>
               <div className="bg-border h-8 w-px" />
-              <Select>
-                <SelectTrigger className="h-10 w-[200px] border-0 shadow-none focus:ring-0">
-                  <SelectValue placeholder="Select timezone" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pst">Pacific Time (PT)</SelectItem>
-                  <SelectItem value="mst">Mountain Time (MT)</SelectItem>
-                  <SelectItem value="cst">Central Time (CT)</SelectItem>
-                  <SelectItem value="est">Eastern Time (ET)</SelectItem>
-                  <SelectItem value="gmt">GMT</SelectItem>
-                  <SelectItem value="cet">
-                    Central European Time (CET)
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="h-10 w-[200px] justify-between border-0 shadow-none"
+                  >
+                    {value
+                      ? timezones.find((timezone) => timezone.value === value)?.label
+                      : "Select timezone..."}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0">
+                  <Command>
+                    <CommandInput placeholder="Search timezone..." />
+                    <CommandEmpty>No timezone found.</CommandEmpty>
+                    <CommandGroup>
+                      {timezones.map((timezone) => (
+                        <CommandItem
+                          key={timezone.value}
+                          value={timezone.value}
+                          onSelect={(currentValue: string) => {
+                            setValue(currentValue === value ? "" : currentValue);
+                            setOpen(false);
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              value === timezone.value ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                          {timezone.label}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
               <Button
                 type="submit"
                 size="lg"
