@@ -67,7 +67,7 @@ export default function Home() {
                 <span className="text-right whitespace-nowrap">TIME ZONE</span>
               </div>
             </h1>
-            <form className="bg-background/80 mt-8 flex w-full items-center gap-4 rounded-full border p-1 shadow-lg backdrop-blur-sm">
+            <form className="bg-background/80 mt-32 flex w-full items-center gap-4 rounded-full border p-1 shadow-lg backdrop-blur-sm">
               <div className="relative flex-1">
                 <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
                 <Input
