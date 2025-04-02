@@ -100,12 +100,16 @@ export function Hero() {
                   variant="ghost"
                   role="combobox"
                   aria-expanded={open}
-                  className="hover:bg-primary/5 h-12 w-52 justify-between border-0 bg-transparent shadow-none"
+                  className="hover:bg-primary/5 h-12 w-52 justify-between border-0 bg-transparent font-normal shadow-none"
                 >
-                  {value
-                    ? timezones.find((timezone) => timezone.value === value)
-                        ?.label
-                    : "Select timezone..."}
+                  {value ? (
+                    timezones.find((timezone) => timezone.value === value)
+                      ?.label
+                  ) : (
+                    <span className="text-muted-foreground">
+                      Select timezone...
+                    </span>
+                  )}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
