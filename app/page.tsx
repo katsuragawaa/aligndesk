@@ -46,9 +46,15 @@ export default function Home() {
   const [value, setValue] = useState("");
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="min-h-screen">
       <section className="relative overflow-hidden pt-16 md:pt-24">
-        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:24px_24px]" />
+          <div className="from-background via-background/95 to-primary/20 absolute inset-0 bg-gradient-to-br" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_0%,transparent_100%)]" />
+          <div className="from-background absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t to-transparent" />
+        </div>
+        <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center space-y-10">
             <div className="flex w-full flex-col items-center">
               <div className="bg-primary/10 text-primary inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium">
@@ -67,8 +73,8 @@ export default function Home() {
                   TIME ZONE
                 </span>
               </h1>
-              <div className="mt-8 max-w-2xl text-center">
-                <p className="text-muted-foreground text-lg leading-relaxed">
+              <div className="mt-8 max-w-xl text-center">
+                <p className="text-muted-foreground text-base leading-relaxed">
                   Discover flexible work-from-home{" "}
                   <span className="text-foreground after:bg-primary relative after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:w-full">
                     customer service
