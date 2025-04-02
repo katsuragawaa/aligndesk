@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Command,
   CommandEmpty,
@@ -9,19 +8,20 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Search, Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Check, ChevronsUpDown, Search } from "lucide-react";
 import { useState } from "react";
 
 const timezones = [
   { value: "pst", label: "Pacific Time (PT)" },
   { value: "mst", label: "Mountain Time (MT)" },
-  { value: "cst", label: "Central Time (CT)" },
+  { value: "cst-na", label: "Central Time (CT)" },
   { value: "est", label: "Eastern Time (ET)" },
   { value: "gmt", label: "GMT" },
   { value: "cet", label: "Central European Time (CET)" },
@@ -38,7 +38,7 @@ const timezones = [
   { value: "eat", label: "East Africa Time (EAT)" },
   { value: "msk", label: "Moscow Standard Time (MSK)" },
   { value: "kst", label: "Korea Standard Time (KST)" },
-  { value: "cst", label: "China Standard Time (CST)" },
+  { value: "cst-cn", label: "China Standard Time (CST)" },
 ];
 
 export default function Home() {
@@ -86,7 +86,8 @@ export default function Home() {
                     className="h-10 w-[200px] justify-between border-0 shadow-none"
                   >
                     {value
-                      ? timezones.find((timezone) => timezone.value === value)?.label
+                      ? timezones.find((timezone) => timezone.value === value)
+                          ?.label
                       : "Select timezone..."}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
@@ -101,14 +102,18 @@ export default function Home() {
                           key={timezone.value}
                           value={timezone.value}
                           onSelect={(currentValue: string) => {
-                            setValue(currentValue === value ? "" : currentValue);
+                            setValue(
+                              currentValue === value ? "" : currentValue,
+                            );
                             setOpen(false);
                           }}
                         >
                           <Check
                             className={cn(
                               "mr-2 h-4 w-4",
-                              value === timezone.value ? "opacity-100" : "opacity-0"
+                              value === timezone.value
+                                ? "opacity-100"
+                                : "opacity-0",
                             )}
                           />
                           {timezone.label}
