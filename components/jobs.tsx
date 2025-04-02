@@ -51,6 +51,30 @@ const jobs = [
       "Remote Management",
     ],
   },
+  {
+    title: "Customer Support Team Lead",
+    location: "North America",
+    type: "Remote",
+    timezone: "UTC-7 to UTC-4",
+    posted: "1d ago",
+    skills: ["Team Management", "Customer Support", "Process Improvement", "Training"],
+  },
+  {
+    title: "Technical Support Specialist",
+    location: "Europe",
+    type: "Remote",
+    timezone: "UTC+0 to UTC+2",
+    posted: "2d ago",
+    skills: ["Technical Support", "Product Knowledge", "Problem Solving", "Documentation"],
+  },
+  {
+    title: "Customer Success Representative",
+    location: "Asia-Pacific",
+    type: "Remote",
+    timezone: "UTC+8 to UTC+11",
+    posted: "4d ago",
+    skills: ["Customer Success", "Onboarding", "Product Training", "APAC Markets"],
+  },
 ];
 
 export function Jobs() {
