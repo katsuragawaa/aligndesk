@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, Globe, MapPin, Send } from "lucide-react";
+import { ArrowRight, Clock, Globe, Mail, MapPin, Send } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Badge } from "./ui/badge";
@@ -57,7 +57,12 @@ const jobs = [
     type: "Remote",
     timezone: "UTC-7 to UTC-4",
     posted: "1d ago",
-    skills: ["Team Management", "Customer Support", "Process Improvement", "Training"],
+    skills: [
+      "Team Management",
+      "Customer Support",
+      "Process Improvement",
+      "Training",
+    ],
   },
   {
     title: "Technical Support Specialist",
@@ -65,7 +70,12 @@ const jobs = [
     type: "Remote",
     timezone: "UTC+0 to UTC+2",
     posted: "2d ago",
-    skills: ["Technical Support", "Product Knowledge", "Problem Solving", "Documentation"],
+    skills: [
+      "Technical Support",
+      "Product Knowledge",
+      "Problem Solving",
+      "Documentation",
+    ],
   },
   {
     title: "Customer Success Representative",
@@ -73,7 +83,12 @@ const jobs = [
     type: "Remote",
     timezone: "UTC+8 to UTC+11",
     posted: "4d ago",
-    skills: ["Customer Success", "Onboarding", "Product Training", "APAC Markets"],
+    skills: [
+      "Customer Success",
+      "Onboarding",
+      "Product Training",
+      "APAC Markets",
+    ],
   },
 ];
 
@@ -100,7 +115,7 @@ export function Jobs() {
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="flex items-center gap-2">
                 <div className="bg-foreground/5 text-foreground ring-foreground/5 group-hover:ring-foreground/10 rounded-full p-2 ring-2 transition-all duration-300">
-                  <Send className="size-4" />
+                  <Mail className="size-4" />
                 </div>
                 <CardTitle className="text-foreground text-xl font-bold tracking-tight">
                   Weekly Remote Job Alert
@@ -133,20 +148,19 @@ export function Jobs() {
                     placeholder="Enter your email address..."
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="border-foreground/10 bg-background/80 focus:border-foreground/20 focus:ring-foreground/10 h-10 pr-4 backdrop-blur-sm transition-all duration-300 focus:ring-1"
+                    className="border-foreground/10 bg-background/80 focus:border-foreground/20 focus:ring-foreground/10 h-10 rounded-full pr-12 backdrop-blur-sm transition-all duration-300 focus:ring-1"
                     required
                   />
-                  <div className="text-foreground absolute top-1/2 right-4 -translate-y-1/2 text-xs font-medium">
-                    {email ? "✓" : ""}
+                  <div className="absolute top-1/2 right-2 flex -translate-y-1/2 items-center gap-1">
+                    <Button
+                      type="submit"
+                      size="icon"
+                      className="size-7 rounded-full"
+                    >
+                      <Send className="size-3.5" />
+                    </Button>
                   </div>
                 </div>
-                <Button
-                  type="submit"
-                  className="bg-primary text-primary-foreground shadow-primary/5 hover:bg-primary/90 hover:shadow-primary/10 h-10 gap-2 shadow-sm transition-all duration-300 hover:shadow-md"
-                >
-                  Subscribe
-                  <Send className="size-4" />
-                </Button>
               </form>
               <p className="text-muted-foreground text-xs font-medium">
                 Join 2,000+ professionals who receive our weekly job alerts
@@ -158,6 +172,15 @@ export function Jobs() {
         {jobs.slice(2).map((job, index) => (
           <JobCard key={index + 2} job={job} />
         ))}
+
+        <div className="flex justify-center pt-6">
+          <Button variant="outline" className="group rounded-full">
+            <span className="flex items-center gap-1.5">
+              View All Jobs
+              <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </span>
+          </Button>
+        </div>
       </div>
     </section>
   );
@@ -208,7 +231,7 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
                 <Badge
                   key={skillIndex}
                   variant="secondary"
-                  className="bg-primary/10 text-primary hover:bg-primary/20 cursor-pointer transition-colors rounded-full"
+                  className="bg-primary/10 text-primary hover:bg-primary/20 cursor-pointer rounded-full transition-colors"
                 >
                   {skill}
                 </Badge>
