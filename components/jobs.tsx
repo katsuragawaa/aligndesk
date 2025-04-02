@@ -103,7 +103,7 @@ export function Jobs() {
   };
 
   return (
-    <section className="relative overflow-hidden py-2">
+    <section className="relative overflow-hidden py-4">
       <div className="mx-auto w-full max-w-4xl space-y-2 px-4 sm:px-6 lg:px-8">
         {jobs.slice(0, 2).map((job, index) => (
           <JobCard key={index} job={job} />

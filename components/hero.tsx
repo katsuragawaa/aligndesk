@@ -46,7 +46,7 @@ export function Hero() {
   const [value, setValue] = useState("");
 
   return (
-    <section className="relative overflow-hidden py-24 md:py-32">
+    <section className="relative overflow-hidden py-12">
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:24px_24px]" />
         <div className="from-background via-background/95 to-primary/20 absolute inset-0 bg-gradient-to-br" />
