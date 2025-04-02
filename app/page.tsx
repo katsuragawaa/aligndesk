@@ -68,7 +68,7 @@ export default function Home() {
               </div>
             </h1>
             <form className="bg-background/80 mt-32 flex w-full items-center gap-4 rounded-full border p-1 shadow-lg backdrop-blur-sm">
-              <div className="relative flex-1">
+              <div className="relative flex-[2]">
                 <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
                 <Input
                   type="text"
@@ -83,7 +83,7 @@ export default function Home() {
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="h-10 w-[200px] justify-between border-0 shadow-none"
+                    className="h-10 w-[300px] justify-between border-0 shadow-none"
                   >
                     {value
                       ? timezones.find((timezone) => timezone.value === value)
@@ -92,7 +92,7 @@ export default function Home() {
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
+                <PopoverContent className="w-[300px] p-0">
                   <Command>
                     <CommandInput placeholder="Search timezone..." />
                     <CommandEmpty>No timezone found.</CommandEmpty>
