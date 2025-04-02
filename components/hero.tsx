@@ -97,10 +97,10 @@ export function Hero() {
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   role="combobox"
                   aria-expanded={open}
-                  className="hover:bg-primary/5 h-12 w-[200px] justify-between border-0 shadow-none"
+                  className="hover:bg-primary/5 h-12 w-52 justify-between border-0 bg-transparent shadow-none"
                 >
                   {value
                     ? timezones.find((timezone) => timezone.value === value)
@@ -109,11 +109,16 @@ export function Hero() {
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[200px] p-0">
-                <Command>
-                  <CommandInput placeholder="Search timezone..." />
-                  <CommandEmpty>No timezone found.</CommandEmpty>
-                  <CommandGroup>
+              <PopoverContent className="bg-background/80 w-52 border p-0 shadow-lg backdrop-blur-sm">
+                <Command className="bg-transparent">
+                  <CommandInput
+                    placeholder="Search timezone..."
+                    className="border-0 focus-visible:ring-0"
+                  />
+                  <CommandEmpty className="py-6 text-center text-sm">
+                    No timezone found.
+                  </CommandEmpty>
+                  <CommandGroup className="max-h-60 overflow-auto">
                     {timezones.map((timezone) => (
                       <CommandItem
                         key={timezone.value}
@@ -122,6 +127,7 @@ export function Hero() {
                           setValue(currentValue === value ? "" : currentValue);
                           setOpen(false);
                         }}
+                        className="hover:bg-primary/5 cursor-pointer"
                       >
                         <Check
                           className={cn(
