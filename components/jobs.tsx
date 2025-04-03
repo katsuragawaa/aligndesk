@@ -1,11 +1,21 @@
 "use client";
 
-import { ArrowRight, Clock, Globe, Mail, MapPin, Send } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  ArrowRight,
+  Bookmark,
+  Clock,
+  Globe,
+  Mail,
+  MapPin,
+  Send,
+  Share2,
+} from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Card, CardContent, CardTitle } from "./ui/card";
+import { Card, CardContent, CardFooter, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 
 const jobs = [
@@ -21,6 +31,10 @@ const jobs = [
       "Live Chat",
       "Timezone Flexibility",
     ],
+    salary: "$45,000 - $65,000",
+    company: "Microsoft",
+    logo: "/companies/logo-microsoft-512.png",
+    featured: true,
   },
   {
     title: "EMEA Customer Success Manager",
@@ -29,6 +43,10 @@ const jobs = [
     timezone: "UTC to UTC+3",
     posted: "5h ago",
     skills: ["Customer Success", "Account Management", "CRM", "EMEA Coverage"],
+    salary: "$60,000 - $80,000",
+    company: "Microsoft",
+    logo: "/companies/logo-microsoft-512.png",
+    featured: false,
   },
   {
     title: "APAC Technical Support Engineer",
@@ -37,6 +55,10 @@ const jobs = [
     timezone: "UTC+7 to UTC+11",
     posted: "1d ago",
     skills: ["Technical Support", "Troubleshooting", "APAC Hours", "Jira"],
+    salary: "$50,000 - $70,000",
+    company: "Microsoft",
+    logo: "/companies/logo-microsoft-512.png",
+    featured: false,
   },
   {
     title: "Global Customer Experience Lead",
@@ -50,6 +72,10 @@ const jobs = [
       "Global Coverage",
       "Remote Management",
     ],
+    salary: "$80,000 - $120,000",
+    company: "Microsoft",
+    logo: "/companies/logo-microsoft-512.png",
+    featured: true,
   },
   {
     title: "Customer Support Team Lead",
@@ -63,6 +89,10 @@ const jobs = [
       "Process Improvement",
       "Training",
     ],
+    salary: "$65,000 - $85,000",
+    company: "Microsoft",
+    logo: "/companies/logo-microsoft-512.png",
+    featured: false,
   },
   {
     title: "Technical Support Specialist",
@@ -76,6 +106,10 @@ const jobs = [
       "Problem Solving",
       "Documentation",
     ],
+    salary: "$55,000 - $75,000",
+    company: "Microsoft",
+    logo: "/companies/logo-microsoft-512.png",
+    featured: false,
   },
   {
     title: "Customer Success Representative",
@@ -89,6 +123,10 @@ const jobs = [
       "Product Training",
       "APAC Markets",
     ],
+    salary: "$50,000 - $70,000",
+    company: "Microsoft",
+    logo: "/companies/logo-microsoft-512.png",
+    featured: false,
   },
 ];
 
@@ -187,59 +225,132 @@ export function Jobs() {
 }
 
 function JobCard({ job }: { job: (typeof jobs)[0] }) {
+  const [isSaved, setIsSaved] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const toggleSave = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsSaved(!isSaved);
+  };
+
   return (
-    <Card className="group hover:border-primary/5 relative overflow-hidden transition-all duration-300 hover:shadow-lg">
+    <Card
+      className={cn(
+        "group relative overflow-hidden transition-all duration-300 hover:shadow-lg",
+        job.featured
+          ? "border-primary border-l-4"
+          : isHovered
+            ? "border-primary/20"
+            : "border-foreground/5",
+      )}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {job.featured && (
+        <div className="bg-primary text-primary-foreground absolute top-4 -right-10 rotate-45 px-10 py-1 text-xs font-medium">
+          Featured
+        </div>
+      )}
       <div className="from-primary/5 absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      <CardContent>
-        <div className="flex flex-col items-center gap-6 sm:flex-row">
-          <div className="flex h-24 w-32 items-center border-r pr-4">
-            <Image
-              src="/companies/logo-microsoft-512.png"
-              alt="Microsoft"
-              className="h-full w-full object-cover"
-              width={512}
-              height={512}
-            />
+      <CardContent className="p-0">
+        <div className="flex flex-col sm:flex-row">
+          <div className="flex h-full w-full items-center justify-center border-b p-4 sm:h-auto sm:w-32 sm:border-r sm:border-b-0">
+            <div className="bg-background/50 relative h-16 w-16 overflow-hidden rounded-full p-2 shadow-sm transition-transform duration-300 group-hover:scale-110">
+              <Image
+                src={job.logo}
+                alt={job.company}
+                className="h-full w-full object-contain"
+                width={64}
+                height={64}
+              />
+            </div>
           </div>
-          <div className="flex-1 space-y-2">
-            <div className="flex items-start justify-between">
-              <CardTitle className="group-hover:text-primary text-base font-semibold transition-colors">
-                {job.title}
-              </CardTitle>
-              <div className="text-muted-foreground text-xs">
-                Posted {job.posted}
+          <div className="flex-1 p-4">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-start justify-between">
+                <div>
+                  <CardTitle className="group-hover:text-primary text-lg font-semibold transition-colors">
+                    {job.title}
+                  </CardTitle>
+                  <p className="text-muted-foreground text-sm">{job.company}</p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className={cn(
+                      "size-8 rounded-full transition-colors",
+                      isSaved
+                        ? "text-amber-500 hover:text-amber-600"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
+                    onClick={toggleSave}
+                    aria-label={isSaved ? "Remove from saved jobs" : "Save job"}
+                  >
+                    <Bookmark
+                      className={cn("size-4", isSaved ? "fill-current" : "")}
+                    />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-muted-foreground hover:text-foreground size-8 rounded-full transition-colors"
+                    aria-label="Share job"
+                  >
+                    <Share2 className="size-4" />
+                  </Button>
+                </div>
               </div>
-            </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="flex items-center gap-1 text-xs">
-                <MapPin className="text-muted-foreground size-2.5" />
-                <span>{job.location}</span>
+              <div className="flex flex-wrap items-center gap-3 text-sm">
+                <div className="flex items-center gap-1">
+                  <MapPin className="text-muted-foreground size-3.5" />
+                  <span>{job.location}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Globe className="text-muted-foreground size-3.5" />
+                  <span>{job.type}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Clock className="text-muted-foreground size-3.5" />
+                  <span>{job.timezone}</span>
+                </div>
+                <div className="text-primary flex items-center gap-1 font-medium">
+                  <span>{job.salary}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-1 text-xs">
-                <Globe className="text-muted-foreground size-2.5" />
-                <span>{job.type}</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs">
-                <Clock className="text-muted-foreground size-2.5" />
-                <span>{job.timezone}</span>
-              </div>
-            </div>
 
-            <div className="flex flex-wrap gap-1">
-              {job.skills.map((skill, skillIndex) => (
-                <Badge
-                  key={skillIndex}
-                  variant="secondary"
-                  className="bg-primary/10 text-primary hover:bg-primary/20 cursor-pointer rounded-full transition-colors"
-                >
-                  {skill}
-                </Badge>
-              ))}
+              <div className="flex flex-wrap gap-1.5">
+                {job.skills.map((skill, skillIndex) => (
+                  <Badge
+                    key={skillIndex}
+                    variant="secondary"
+                    className="bg-primary/10 text-primary hover:bg-primary/20 cursor-pointer rounded-full transition-colors"
+                  >
+                    {skill}
+                  </Badge>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </CardContent>
+      <CardFooter className="relative flex justify-between border-t p-3">
+        <div className="bg-muted/30 absolute inset-0" />
+        <div className="from-background absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t to-transparent" />
+        <div className="text-muted-foreground relative text-xs">
+          Posted {job.posted}
+        </div>
+        <Button
+          size="sm"
+          className="group/btn relative rounded-full transition-all duration-300 hover:scale-105"
+        >
+          <span className="flex items-center gap-1.5">
+            Apply Now
+            <ArrowRight className="size-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
+          </span>
+        </Button>
+      </CardFooter>
     </Card>
   );
 }
