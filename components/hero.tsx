@@ -53,27 +53,25 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_0%,transparent_100%)]" />
         <div className="from-background absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t to-transparent" />
       </div>
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center space-y-10">
-          <div className="flex w-full flex-col items-center">
-            <div className="bg-primary/10 text-primary inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium">
+          <div className="flex w-full flex-col">
+            <div className="bg-primary/10 text-primary inline-flex items-center gap-2 self-center rounded-full px-4 py-1.5 text-sm font-medium">
               <span className="relative flex h-2 w-2">
                 <span className="bg-primary absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
                 <span className="bg-primary relative inline-flex h-2 w-2 rounded-full"></span>
               </span>
               Now hiring worldwide
             </div>
-            <h1 className="mt-8 text-center text-4xl font-bold tracking-tight sm:text-6xl">
-              FIND THE JOB
-              <br />
-              THAT FITS YOUR
-              <br />
-              <span className="from-primary to-primary/80 bg-gradient-to-r bg-clip-text text-transparent">
+            <div className="mt-8 text-4xl font-bold tracking-tight sm:text-9xl">
+              <h1 className="mr-40 text-right">FIND THE JOB</h1>
+              <h1 className="text-left">THAT FITS YOUR</h1>
+              <h1 className="from-primary to-primary/80 bg-gradient-to-r bg-clip-text text-right text-transparent">
                 TIME ZONE
-              </span>
-            </h1>
-            <div className="mt-8 max-w-xl text-center">
-              <p className="text-muted-foreground text-base leading-relaxed">
+              </h1>
+            </div>
+            <div className="mt-8 max-w-xl self-center text-center">
+              <p className="text-muted-foreground text-lg leading-relaxed">
                 Discover flexible work-from-home{" "}
                 <span className="text-foreground after:bg-primary relative after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:w-full">
                   customer service
@@ -100,7 +98,7 @@ export function Hero() {
                   variant="ghost"
                   role="combobox"
                   aria-expanded={open}
-                  className="hover:bg-primary/5 h-12 w-52 justify-between border-0 bg-transparent font-normal shadow-none"
+                  className="hover:bg-primary/5 h-12 w-64 justify-between border-0 bg-transparent font-normal shadow-none"
                 >
                   {value ? (
                     timezones.find((timezone) => timezone.value === value)
@@ -113,7 +111,7 @@ export function Hero() {
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="bg-background/80 w-52 border p-0 shadow-lg backdrop-blur-sm">
+              <PopoverContent className="bg-background/80 w-64 border p-0 shadow-lg backdrop-blur-sm">
                 <Command className="bg-transparent">
                   <CommandInput
                     placeholder="Search timezone..."
