@@ -142,7 +142,7 @@ export function Jobs() {
 
   return (
     <section className="relative overflow-hidden py-4">
-      <div className="mx-auto w-full max-w-4xl space-y-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl space-y-4 px-4 sm:px-6 lg:px-8">
         {jobs.slice(0, 2).map((job, index) => (
           <JobCard key={index} job={job} />
         ))}
@@ -254,25 +254,27 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
       <div className="from-primary/5 absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       <CardContent className="p-0">
         <div className="flex flex-col sm:flex-row">
-          <div className="flex h-full w-full items-center justify-center border-b p-4 sm:h-auto sm:w-32 sm:border-r sm:border-b-0">
-            <div className="bg-background/50 relative h-16 w-16 overflow-hidden rounded-full p-2 shadow-sm transition-transform duration-300 group-hover:scale-110">
+          <div className="flex h-full w-full items-center justify-center border-b p-4 sm:h-auto sm:w-40 sm:border-r sm:border-b-0">
+            <div className="bg-background/50 relative h-20 w-20 overflow-hidden rounded-full p-2 shadow-sm transition-transform duration-300 group-hover:scale-110">
               <Image
                 src={job.logo}
                 alt={job.company}
                 className="h-full w-full object-contain"
-                width={64}
-                height={64}
+                width={80}
+                height={80}
               />
             </div>
           </div>
-          <div className="flex-1 p-4">
-            <div className="flex flex-col gap-2">
+          <div className="flex-1 p-6">
+            <div className="flex flex-col gap-3">
               <div className="flex items-start justify-between">
                 <div>
-                  <CardTitle className="group-hover:text-primary text-lg font-semibold transition-colors">
+                  <CardTitle className="group-hover:text-primary text-xl font-semibold transition-colors">
                     {job.title}
                   </CardTitle>
-                  <p className="text-muted-foreground text-sm">{job.company}</p>
+                  <p className="text-muted-foreground text-base">
+                    {job.company}
+                  </p>
                 </div>
                 <div className="flex items-center gap-1">
                   <Button
@@ -302,7 +304,7 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 text-sm">
+              <div className="flex flex-wrap items-center gap-4 text-sm">
                 <div className="flex items-center gap-1">
                   <MapPin className="text-muted-foreground size-3.5" />
                   <span>{job.location}</span>
@@ -320,7 +322,7 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2">
                 {job.skills.map((skill, skillIndex) => (
                   <Badge
                     key={skillIndex}
@@ -335,7 +337,7 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="relative flex justify-between border-t p-3">
+      <CardFooter className="relative flex justify-between border-t p-4">
         <div className="bg-muted/30 absolute inset-0" />
         <div className="from-background absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t to-transparent" />
         <div className="text-muted-foreground relative text-xs">
