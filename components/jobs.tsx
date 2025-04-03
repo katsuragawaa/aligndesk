@@ -237,11 +237,7 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
     <Card
       className={cn(
         "group relative overflow-hidden transition-all duration-300 hover:shadow-lg",
-        job.featured
-          ? "border-primary border-l-4"
-          : isHovered
-            ? "border-primary/20"
-            : "border-foreground/5",
+        job.featured ? "border-muted-foreground border-l-4" : "",
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
