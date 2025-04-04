@@ -226,7 +226,6 @@ export function Jobs() {
 
 function JobCard({ job }: { job: (typeof jobs)[0] }) {
   const [isSaved, setIsSaved] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const toggleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -239,8 +238,6 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
         "group relative overflow-hidden transition-all duration-300 hover:shadow-lg",
         job.featured ? "border-muted-foreground border-l-4" : "",
       )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {job.featured && (
         <div className="bg-primary text-primary-foreground absolute top-4 -right-10 rotate-45 px-10 py-1 text-xs font-medium">
