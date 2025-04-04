@@ -217,7 +217,6 @@ export function Jobs() {
 
 function JobCard({ job }: { job: (typeof jobs)[0] }) {
   const [isSaved, setIsSaved] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -230,7 +229,6 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
         "group relative cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg",
         job.featured ? "border-muted-foreground border-l-4" : "",
       )}
-      onClick={() => setIsExpanded(!isExpanded)}
     >
       {job.featured && (
         <div className="bg-primary text-primary-foreground absolute top-4 -right-10 rotate-45 px-10 py-1 text-xs font-medium">
@@ -311,25 +309,16 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
             </Button>
           </div>
 
-          <div
-            className={cn(
-              "grid transition-all duration-300",
-              isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-            )}
-          >
-            <div className="overflow-hidden">
-              <div className="flex flex-wrap gap-2">
-                {job.skills.map((skill, skillIndex) => (
-                  <Badge
-                    key={skillIndex}
-                    variant="secondary"
-                    className="bg-primary/10 text-primary hover:bg-primary/20 cursor-pointer rounded-full transition-colors"
-                  >
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </div>
+          <div className="flex flex-wrap gap-2">
+            {job.skills.map((skill, skillIndex) => (
+              <Badge
+                key={skillIndex}
+                variant="secondary"
+                className="bg-primary/10 text-primary hover:bg-primary/20 cursor-pointer rounded-full transition-colors"
+              >
+                {skill}
+              </Badge>
+            ))}
           </div>
         </div>
       </CardContent>
