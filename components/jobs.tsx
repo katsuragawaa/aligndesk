@@ -293,7 +293,20 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
               </div>
               <div>{job.salary}</div>
             </div>
+          </div>
 
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex flex-wrap gap-2">
+              {job.skills.map((skill, skillIndex) => (
+                <Badge
+                  key={skillIndex}
+                  variant="secondary"
+                  className="bg-primary/10 text-primary hover:bg-primary/20 cursor-pointer rounded-full transition-colors"
+                >
+                  {skill}
+                </Badge>
+              ))}
+            </div>
             <Button
               size="sm"
               className="group/btn relative shrink-0 rounded-full transition-all duration-300 hover:scale-105"
@@ -307,18 +320,6 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
               </span>
             </Button>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {job.skills.map((skill, skillIndex) => (
-              <Badge
-                key={skillIndex}
-                variant="secondary"
-                className="bg-primary/10 text-primary hover:bg-primary/20 cursor-pointer rounded-full transition-colors"
-              >
-                {skill}
-              </Badge>
-            ))}
           </div>
         </div>
       </CardContent>
