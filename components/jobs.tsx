@@ -1,21 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
-  ArrowRight,
-  Bookmark,
-  Clock,
-  Globe,
-  Mail,
-  MapPin,
-  Send,
-  Share2,
-} from "lucide-react";
+import { ArrowRight, Bookmark, Clock, Mail, MapPin, Send } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Card, CardContent, CardFooter, CardTitle } from "./ui/card";
+import { Card, CardContent, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 
 const jobs = [
@@ -226,6 +217,7 @@ export function Jobs() {
 
 function JobCard({ job }: { job: (typeof jobs)[0] }) {
   const [isSaved, setIsSaved] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -235,86 +227,97 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
   return (
     <Card
       className={cn(
-        "group relative overflow-hidden transition-all duration-300 hover:shadow-lg",
+        "group relative cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg",
         job.featured ? "border-muted-foreground border-l-4" : "",
       )}
+      onClick={() => setIsExpanded(!isExpanded)}
     >
       {job.featured && (
         <div className="bg-primary text-primary-foreground absolute top-4 -right-10 rotate-45 px-10 py-1 text-xs font-medium">
           Featured
         </div>
       )}
-      <div className="from-primary/5 absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      <CardContent className="p-0">
-        <div className="flex flex-col sm:flex-row">
-          <div className="flex h-full w-full items-center justify-center border-b p-4 sm:h-auto sm:w-40 sm:border-r sm:border-b-0">
-            <div className="bg-background/50 relative h-20 w-20 overflow-hidden rounded-full p-2 shadow-sm transition-transform duration-300 group-hover:scale-110">
-              <Image
-                src={job.logo}
-                alt={job.company}
-                className="h-full w-full object-contain"
-                width={80}
-                height={80}
-              />
+      <div className="from-primary/5 pointer-events-none absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <CardContent className="relative z-10 p-4">
+        <div className="flex flex-col gap-3">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-background/50 relative h-12 w-12 shrink-0 overflow-hidden rounded-lg p-1 shadow-sm">
+                <Image
+                  src={job.logo}
+                  alt={job.company}
+                  className="h-full w-full object-contain"
+                  width={48}
+                  height={48}
+                />
+              </div>
+              <div>
+                <CardTitle className="group-hover:text-primary text-lg font-semibold transition-colors">
+                  {job.title}
+                </CardTitle>
+                <div className="flex items-center gap-2">
+                  <p className="text-muted-foreground text-sm">{job.company}</p>
+                  <span className="text-muted-foreground/60 text-xs">
+                    • {job.posted}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  "size-8 rounded-full transition-colors",
+                  isSaved
+                    ? "text-amber-500 hover:text-amber-600"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+                onClick={toggleSave}
+                aria-label={isSaved ? "Remove from saved jobs" : "Save job"}
+              >
+                <Bookmark
+                  className={cn("size-4", isSaved ? "fill-current" : "")}
+                />
+              </Button>
             </div>
           </div>
-          <div className="flex-1 p-6">
-            <div className="flex flex-col gap-3">
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="group-hover:text-primary text-xl font-semibold transition-colors">
-                    {job.title}
-                  </CardTitle>
-                  <p className="text-muted-foreground text-base">
-                    {job.company}
-                  </p>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className={cn(
-                      "size-8 rounded-full transition-colors",
-                      isSaved
-                        ? "text-amber-500 hover:text-amber-600"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                    onClick={toggleSave}
-                    aria-label={isSaved ? "Remove from saved jobs" : "Save job"}
-                  >
-                    <Bookmark
-                      className={cn("size-4", isSaved ? "fill-current" : "")}
-                    />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-muted-foreground hover:text-foreground size-8 rounded-full transition-colors"
-                    aria-label="Share job"
-                  >
-                    <Share2 className="size-4" />
-                  </Button>
-                </div>
-              </div>
 
-              <div className="flex flex-wrap items-center gap-4 text-sm">
-                <div className="flex items-center gap-1">
-                  <MapPin className="text-muted-foreground size-3.5" />
-                  <span>{job.location}</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Globe className="text-muted-foreground size-3.5" />
-                  <span>{job.type}</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Clock className="text-muted-foreground size-3.5" />
-                  <span>{job.timezone}</span>
-                </div>
-                <div className="text-primary flex items-center gap-1 font-medium">
-                  <span>{job.salary}</span>
-                </div>
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              <div className="flex items-center gap-1">
+                <MapPin className="text-muted-foreground size-3.5" />
+                <span>{job.location}</span>
               </div>
+              <div className="bg-primary/5 flex items-center gap-1 rounded-full px-2 py-0.5">
+                <Clock className="text-primary size-3.5" />
+                <span>{job.timezone}</span>
+              </div>
+              <div>{job.salary}</div>
+            </div>
 
+            <Button
+              size="sm"
+              className="group/btn relative shrink-0 rounded-full transition-all duration-300 hover:scale-105"
+              onClick={(e) => {
+                e.stopPropagation();
+                // Handle apply action
+              }}
+            >
+              <span className="flex items-center gap-1.5">
+                Apply Now
+                <ArrowRight className="size-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
+              </span>
+            </Button>
+          </div>
+
+          <div
+            className={cn(
+              "grid transition-all duration-300",
+              isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+            )}
+          >
+            <div className="overflow-hidden">
               <div className="flex flex-wrap gap-2">
                 {job.skills.map((skill, skillIndex) => (
                   <Badge
@@ -330,22 +333,6 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="relative flex justify-between border-t p-4">
-        <div className="bg-muted/30 absolute inset-0" />
-        <div className="from-background absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t to-transparent" />
-        <div className="text-muted-foreground relative text-xs">
-          Posted {job.posted}
-        </div>
-        <Button
-          size="sm"
-          className="group/btn relative rounded-full transition-all duration-300 hover:scale-105"
-        >
-          <span className="flex items-center gap-1.5">
-            Apply Now
-            <ArrowRight className="size-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
-          </span>
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
