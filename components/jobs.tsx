@@ -126,90 +126,96 @@ export function Jobs() {
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle subscription logic here
     console.log("Subscribing email:", email);
     setEmail("");
   };
 
   return (
-    <section className="relative overflow-hidden py-4">
-      <div className="mx-auto w-full max-w-7xl space-y-4 px-4 sm:px-6 lg:px-8">
-        {jobs.slice(0, 2).map((job, index) => (
-          <JobCard key={index} job={job} />
-        ))}
-
-        <Card className="group border-foreground/5 bg-background dark:bg-background/50 dark:border-foreground/5 hover:shadow-foreground/5 dark:hover:shadow-foreground/5 relative overflow-hidden border transition-all duration-300 hover:shadow-lg">
+    <section className="relative overflow-hidden py-16">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Card className="bg-background/50 border-foreground/5 dark:bg-background/30 dark:border-foreground/5 relative overflow-hidden border backdrop-blur-sm">
           <div className="animate-shimmer absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.02)_50%,transparent_75%)] bg-[length:250%_250%] dark:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.02)_50%,transparent_75%)]" />
-          <CardContent className="relative py-5">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="flex items-center gap-2">
-                <div className="bg-foreground/5 text-foreground ring-foreground/5 group-hover:ring-foreground/10 rounded-full p-2 ring-2 transition-all duration-300">
-                  <Mail className="size-4" />
-                </div>
-                <CardTitle className="text-foreground text-xl font-bold tracking-tight">
-                  Weekly Remote Job Alert
-                </CardTitle>
-              </div>
-              <div className="space-y-2">
-                <p className="text-muted-foreground max-w-md text-sm leading-relaxed">
-                  Get personalized remote customer service opportunities that
-                  match your timezone and preferences.
-                </p>
-                <div className="flex flex-wrap justify-center gap-1.5 text-xs">
-                  <div className="bg-foreground/5 text-foreground ring-foreground/5 group-hover:ring-foreground/10 rounded-full px-3 py-1 ring-1 transition-all duration-300">
-                    Curated for your timezone
-                  </div>
-                  <div className="bg-foreground/5 text-foreground ring-foreground/5 group-hover:ring-foreground/10 rounded-full px-3 py-1 ring-1 transition-all duration-300">
-                    Every Monday
-                  </div>
-                  <div className="bg-foreground/5 text-foreground ring-foreground/5 group-hover:ring-foreground/10 rounded-full px-3 py-1 ring-1 transition-all duration-300">
-                    Free forever
-                  </div>
-                </div>
-              </div>
-              <form
-                onSubmit={handleSubscribe}
-                className="mt-1 flex w-full max-w-md flex-col gap-2 sm:flex-row"
-              >
-                <div className="relative flex-1">
-                  <Input
-                    type="email"
-                    placeholder="Enter your email address..."
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="border-foreground/10 bg-background/80 focus:border-foreground/20 focus:ring-foreground/10 h-10 rounded-full pr-12 backdrop-blur-sm transition-all duration-300 focus:ring-1"
-                    required
-                  />
-                  <div className="absolute top-1/2 right-2 flex -translate-y-1/2 items-center gap-1">
-                    <Button
-                      type="submit"
-                      size="icon"
-                      className="size-7 rounded-full"
+          <CardContent className="relative space-y-4 py-8">
+            <div className="space-y-4">
+              {jobs.slice(0, 2).map((job, index) => (
+                <JobCard key={index} job={job} />
+              ))}
+
+              <Card className="group border-foreground/5 bg-background dark:bg-background/50 dark:border-foreground/5 hover:shadow-foreground/5 dark:hover:shadow-foreground/5 relative overflow-hidden border transition-all duration-300 hover:shadow-lg">
+                <div className="animate-shimmer absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.02)_50%,transparent_75%)] bg-[length:250%_250%] dark:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.02)_50%,transparent_75%)]" />
+                <CardContent className="relative py-5">
+                  <div className="flex flex-col items-center space-y-4 text-center">
+                    <div className="flex items-center gap-2">
+                      <div className="bg-foreground/5 text-foreground ring-foreground/5 group-hover:ring-foreground/10 rounded-full p-2 ring-2 transition-all duration-300">
+                        <Mail className="size-4" />
+                      </div>
+                      <CardTitle className="text-foreground text-xl font-bold tracking-tight">
+                        Weekly Remote Job Alert
+                      </CardTitle>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-muted-foreground max-w-md text-sm leading-relaxed">
+                        Get personalized remote customer service opportunities that
+                        match your timezone and preferences.
+                      </p>
+                      <div className="flex flex-wrap justify-center gap-1.5 text-xs">
+                        <div className="bg-foreground/5 text-foreground ring-foreground/5 group-hover:ring-foreground/10 rounded-full px-3 py-1 ring-1 transition-all duration-300">
+                          Curated for your timezone
+                        </div>
+                        <div className="bg-foreground/5 text-foreground ring-foreground/5 group-hover:ring-foreground/10 rounded-full px-3 py-1 ring-1 transition-all duration-300">
+                          Every Monday
+                        </div>
+                        <div className="bg-foreground/5 text-foreground ring-foreground/5 group-hover:ring-foreground/10 rounded-full px-3 py-1 ring-1 transition-all duration-300">
+                          Free forever
+                        </div>
+                      </div>
+                    </div>
+                    <form
+                      onSubmit={handleSubscribe}
+                      className="mt-1 flex w-full max-w-md flex-col gap-2 sm:flex-row"
                     >
-                      <Send className="size-3.5" />
-                    </Button>
+                      <div className="relative flex-1">
+                        <Input
+                          type="email"
+                          placeholder="Enter your email address..."
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="border-foreground/10 bg-background/80 focus:border-foreground/20 focus:ring-foreground/10 h-10 rounded-full pr-12 backdrop-blur-sm transition-all duration-300 focus:ring-1"
+                          required
+                        />
+                        <div className="absolute top-1/2 right-2 flex -translate-y-1/2 items-center gap-1">
+                          <Button
+                            type="submit"
+                            size="icon"
+                            className="size-7 rounded-full"
+                          >
+                            <Send className="size-3.5" />
+                          </Button>
+                        </div>
+                      </div>
+                    </form>
+                    <p className="text-muted-foreground text-xs font-medium">
+                      Join 2,000+ professionals who receive our weekly job alerts
+                    </p>
                   </div>
-                </div>
-              </form>
-              <p className="text-muted-foreground text-xs font-medium">
-                Join 2,000+ professionals who receive our weekly job alerts
-              </p>
+                </CardContent>
+              </Card>
+
+              {jobs.slice(2).map((job, index) => (
+                <JobCard key={index + 2} job={job} />
+              ))}
+            </div>
+
+            <div className="flex justify-center pt-4">
+              <Button variant="outline" className="group rounded-full">
+                <span className="flex items-center gap-1.5">
+                  View All Jobs
+                  <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
+              </Button>
             </div>
           </CardContent>
         </Card>
-
-        {jobs.slice(2).map((job, index) => (
-          <JobCard key={index + 2} job={job} />
-        ))}
-
-        <div className="flex justify-center pt-6">
-          <Button variant="outline" className="group rounded-full">
-            <span className="flex items-center gap-1.5">
-              View All Jobs
-              <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </span>
-          </Button>
-        </div>
       </div>
     </section>
   );
