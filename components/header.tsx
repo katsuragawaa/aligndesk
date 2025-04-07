@@ -13,19 +13,19 @@ export default function Header() {
         </Link>
         <div className="flex items-center space-x-8">
           <Link
-            href="/jobs"
+            href="#jobs"
             className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
           >
             Jobs
           </Link>
           <Link
-            href="/companies"
+            href="/post-job"
             className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
           >
-            Companies
+            Post a Job
           </Link>
           <Link
-            href="/about"
+            href="#about"
             className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
           >
             About
