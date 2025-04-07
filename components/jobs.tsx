@@ -198,7 +198,9 @@ export function Jobs() {
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Join Our Waitlist</DialogTitle>
+                      <DialogTitle className="sr-only">
+                        Join Our Waitlist
+                      </DialogTitle>
                     </DialogHeader>
                     <WaitlistForm />
                   </DialogContent>
@@ -335,7 +337,9 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Join Our Waitlist</DialogTitle>
+                  <DialogTitle className="sr-only">
+                    Join Our Waitlist
+                  </DialogTitle>
                 </DialogHeader>
                 <WaitlistForm />
               </DialogContent>
