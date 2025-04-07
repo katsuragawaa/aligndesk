@@ -26,18 +26,19 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-background/80 border-t backdrop-blur-sm">
+    <footer className="relative overflow-hidden">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <div className="from-background via-background/95 to-primary/20 absolute inset-0 bg-gradient-to-br" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_0%,transparent_100%)]" />
+        <div className="from-background absolute inset-x-0 top-0 h-32 bg-gradient-to-b to-transparent" />
+      </div>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content */}
         <div className="grid gap-16 py-16 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-          {/* Brand and Newsletter Section */}
           <div className="lg:col-span-5">
-            <Link
-              href="/"
-              className="group inline-flex items-center gap-2 transition-opacity hover:opacity-90"
-            >
-              <Layout className="text-primary h-6 w-6" />
-              <span className="after:bg-primary relative text-xl font-bold after:absolute after:right-0 after:bottom-0 after:h-0.5 after:w-0 after:transition-all group-hover:after:w-full">
+            <Link href="/" className="flex items-center gap-2">
+              <Layout className="h-6 w-6" />
+              <span className="after:bg-primary relative text-xl font-bold after:absolute after:right-0 after:bottom-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full">
                 AlignDesk
               </span>
             </Link>
@@ -68,7 +69,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Navigation Links Section */}
           <div className="grid gap-8 sm:grid-cols-3 lg:col-span-7">
             <div>
               <p className="text-foreground text-sm font-semibold">Company</p>
@@ -77,7 +77,7 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                      className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
                     >
                       {link.label}
                     </Link>
@@ -92,7 +92,7 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                      className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
                     >
                       {link.label}
                     </Link>
@@ -108,7 +108,7 @@ export function Footer() {
                     href="https://twitter.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                    className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
                   >
                     Twitter
                   </Link>
@@ -118,7 +118,7 @@ export function Footer() {
                     href="https://linkedin.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                    className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
                   >
                     LinkedIn
                   </Link>
@@ -128,7 +128,7 @@ export function Footer() {
                     href="https://github.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                    className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
                   >
                     GitHub
                   </Link>
@@ -138,8 +138,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Copyright Section */}
-        <div className="border-t py-8">
+        <div className="border-border/40 border-t py-8">
           <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:justify-start">
               <p className="text-muted-foreground text-sm">
@@ -149,7 +148,7 @@ export function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                  className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
                 >
                   {link.label}
                 </Link>
