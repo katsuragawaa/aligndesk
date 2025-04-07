@@ -28,10 +28,7 @@ const helpTopics = [
 
 export function Help() {
   return (
-    <section
-      className="relative overflow-hidden py-16"
-      aria-label="Help and support section"
-    >
+    <section id="help" className="relative overflow-hidden py-16" aria-label="Help and support section">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <Card className="bg-background/50 border-foreground/5 dark:bg-background/30 dark:border-foreground/5 relative overflow-hidden border backdrop-blur-sm">
           <div className="animate-shimmer absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.02)_50%,transparent_75%)] bg-[length:250%_250%] dark:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.02)_50%,transparent_75%)]" />

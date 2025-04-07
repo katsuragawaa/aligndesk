@@ -5,6 +5,7 @@ import { Card, CardContent } from "./ui/card";
 export function About() {
   return (
     <section
+      id="about"
       className="relative overflow-hidden py-16"
       aria-label="About AlignDesk"
     >

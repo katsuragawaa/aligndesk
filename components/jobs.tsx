@@ -130,7 +130,7 @@ export function Jobs() {
   };
 
   return (
-    <section className="relative overflow-hidden py-16">
+    <section id="jobs" className="relative overflow-hidden py-16">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="space-y-6">
           <div className="flex items-center justify-between">
