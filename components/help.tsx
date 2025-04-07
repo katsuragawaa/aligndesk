@@ -13,34 +13,16 @@ const helpTopics = [
     icon: Users,
     title: "Hiring Process",
     description: "Learn about our application steps and timeline",
-    items: [
-      "Application Review",
-      "Interview Process",
-      "Skill Assessment",
-      "Team Matching",
-    ],
   },
   {
     icon: MessageCircle,
     title: "Common Questions",
     description: "Find answers to frequently asked questions",
-    items: [
-      "Remote Work Policy",
-      "Benefits & Perks",
-      "Work Hours",
-      "Technology Stack",
-    ],
   },
   {
     icon: Zap,
     title: "Quick Start",
     description: "Get started with your application quickly",
-    items: [
-      "Profile Setup",
-      "Required Documents",
-      "Portfolio Tips",
-      "Next Steps",
-    ],
   },
 ];
 
@@ -118,20 +100,6 @@ export function Help() {
                           <p className="text-muted-foreground mt-1 text-sm">
                             {topic.description}
                           </p>
-                          <ul
-                            className="mt-2 space-y-1"
-                            role="list"
-                            aria-label={`${topic.title} items`}
-                          >
-                            {topic.items.map((item, itemIndex) => (
-                              <li
-                                key={itemIndex}
-                                className="text-muted-foreground text-sm"
-                              >
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
                         </div>
                       </div>
                     </CardContent>
