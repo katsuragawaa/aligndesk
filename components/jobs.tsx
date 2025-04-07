@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { ArrowRight, Clock, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import {
@@ -167,7 +167,9 @@ export function Jobs() {
             </h2>
             <WaitlistDialog
               open={dialog.isOpen("header")}
-              onOpenChange={(open) => open ? dialog.open("header") : dialog.close()}
+              onOpenChange={(open) =>
+                open ? dialog.open("header") : dialog.close()
+              }
             >
               <Button
                 variant="outline"
@@ -189,7 +191,9 @@ export function Jobs() {
                 key={index}
                 job={job}
                 showWaitlist={dialog.isOpen(`job-${index}`)}
-                setShowWaitlist={(open) => open ? dialog.open(`job-${index}`) : dialog.close()}
+                setShowWaitlist={(open) =>
+                  open ? dialog.open(`job-${index}`) : dialog.close()
+                }
                 onApplyClick={() => dialog.open(`job-${index}`)}
               />
             ))}
@@ -223,7 +227,9 @@ export function Jobs() {
                 </div>
                 <WaitlistDialog
                   open={dialog.isOpen("alert")}
-                  onOpenChange={(open) => open ? dialog.open("alert") : dialog.close()}
+                  onOpenChange={(open) =>
+                    open ? dialog.open("alert") : dialog.close()
+                  }
                 >
                   <Button
                     className="w-full max-w-md cursor-pointer rounded-full"
@@ -243,7 +249,9 @@ export function Jobs() {
                 key={index + 2}
                 job={job}
                 showWaitlist={dialog.isOpen(`job-${index + 2}`)}
-                setShowWaitlist={(open) => open ? dialog.open(`job-${index + 2}`) : dialog.close()}
+                setShowWaitlist={(open) =>
+                  open ? dialog.open(`job-${index + 2}`) : dialog.close()
+                }
                 onApplyClick={() => dialog.open(`job-${index + 2}`)}
               />
             ))}
@@ -381,10 +389,7 @@ function JobCard({
           </div>
         </div>
       </div>
-      <WaitlistDialog
-        open={showWaitlist}
-        onOpenChange={setShowWaitlist}
-      >
+      <WaitlistDialog open={showWaitlist} onOpenChange={setShowWaitlist}>
         <div className="sr-only">Apply Now Dialog</div>
       </WaitlistDialog>
     </div>
