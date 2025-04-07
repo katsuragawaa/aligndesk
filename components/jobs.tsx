@@ -280,17 +280,14 @@ function JobCard({
       className={cn(
         "group relative p-4 transition-colors",
         job.featured
-          ? "before:bg-primary/10 hover:before:bg-primary/20 before:pointer-events-none before:absolute before:-inset-px before:rounded-lg"
+          ? "bg-primary/[0.03] hover:bg-primary/[0.05] border-l-2 border-l-primary"
           : "hover:bg-muted/50",
       )}
     >
       {job.featured && (
         <div className="absolute top-4 right-4 flex items-center gap-1.5 text-xs font-medium">
-          <div className="bg-primary/10 text-primary flex items-center gap-1 rounded-full px-2 py-0.5">
-            <span className="relative flex size-1.5">
-              <span className="bg-primary absolute inline-flex size-full animate-ping rounded-full opacity-75"></span>
-              <span className="bg-primary relative inline-flex size-1.5 rounded-full"></span>
-            </span>
+          <div className="bg-primary/[0.08] hover:bg-primary/[0.12] text-primary flex items-center gap-1.5 rounded-full px-2.5 py-1 transition-colors">
+            <span className="size-1.5 rounded-full bg-primary/80" />
             Featured
           </div>
         </div>
@@ -299,8 +296,8 @@ function JobCard({
       <div className="flex items-start gap-4">
         <div
           className={cn(
-            "relative h-12 w-12 shrink-0 overflow-hidden rounded-lg p-1",
-            job.featured ? "bg-primary/5" : "bg-background",
+            "relative h-12 w-12 shrink-0 overflow-hidden rounded-lg",
+            job.featured ? "bg-primary/[0.08] p-1.5" : "bg-background p-1",
           )}
         >
           <Image
@@ -339,7 +336,7 @@ function JobCard({
               className={cn(
                 "flex items-center gap-1 rounded-full px-2.5 py-1 text-xs",
                 job.featured
-                  ? "bg-primary/5 text-primary"
+                  ? "bg-primary/[0.08] text-primary"
                   : "bg-muted text-muted-foreground",
               )}
             >
@@ -350,7 +347,7 @@ function JobCard({
               className={cn(
                 "rounded-full px-2.5 py-1 text-xs",
                 job.featured
-                  ? "bg-primary/5 text-primary"
+                  ? "bg-primary/[0.08] text-primary"
                   : "bg-muted text-muted-foreground",
               )}
             >
@@ -367,7 +364,7 @@ function JobCard({
                   className={cn(
                     "rounded-full text-xs transition-colors",
                     job.featured
-                      ? "bg-primary/5 text-primary hover:bg-primary/10"
+                      ? "bg-primary/[0.08] text-primary hover:bg-primary/[0.12]"
                       : "bg-muted hover:bg-muted/80",
                   )}
                 >
