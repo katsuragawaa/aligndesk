@@ -56,7 +56,9 @@ export function Help() {
                     LIKE
                   </span>
                   <span> & </span>
-                  <span className="text-indigo-400">LOVE</span>
+                  <span className="from-primary to-primary/80 bg-gradient-to-r bg-clip-text text-transparent">
+                    LOVE
+                  </span>
                   <span> TO HELP.</span>
                 </h2>
               </div>
