@@ -1,12 +1,19 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ArrowRight, Clock, Mail, MapPin, Send } from "lucide-react";
+import { ArrowRight, Clock, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import { WaitlistForm } from "./waitlist-form";
 
 const jobs = [
   {
@@ -121,13 +128,7 @@ const jobs = [
 ];
 
 export function Jobs() {
-  const [email, setEmail] = useState("");
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Subscribing email:", email);
-    setEmail("");
-  };
+  const [showWaitlist, setShowWaitlist] = useState(false);
 
   return (
     <section id="jobs" className="relative overflow-hidden py-16">
@@ -137,12 +138,26 @@ export function Jobs() {
             <h2 className="text-2xl font-semibold tracking-tight">
               Remote Jobs
             </h2>
-            <Button variant="outline" size="sm" className="group rounded-full">
-              <span className="flex items-center gap-1.5">
-                View All
-                <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </span>
-            </Button>
+            <Dialog open={showWaitlist} onOpenChange={setShowWaitlist}>
+              <DialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="group rounded-full"
+                >
+                  <span className="flex items-center gap-1.5">
+                    View All
+                    <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Join Our Waitlist</DialogTitle>
+                </DialogHeader>
+                <WaitlistForm />
+              </DialogContent>
+            </Dialog>
           </div>
 
           <div className="divide-border bg-background/50 divide-y rounded-lg border backdrop-blur-sm">
@@ -177,30 +192,17 @@ export function Jobs() {
                     </div>
                   </div>
                 </div>
-                <form
-                  onSubmit={handleSubscribe}
-                  className="mt-1 flex w-full max-w-md flex-col gap-2 sm:flex-row"
-                >
-                  <div className="relative flex-1">
-                    <Input
-                      type="email"
-                      placeholder="Enter your email address..."
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="border-muted bg-background/80 focus:border-primary/20 focus:ring-primary/10 h-10 rounded-full pr-12 backdrop-blur-sm transition-all duration-300 focus:ring-1"
-                      required
-                    />
-                    <div className="absolute top-1/2 right-2 flex -translate-y-1/2 items-center gap-1">
-                      <Button
-                        type="submit"
-                        size="icon"
-                        className="size-7 rounded-full"
-                      >
-                        <Send className="size-3.5" />
-                      </Button>
-                    </div>
-                  </div>
-                </form>
+                <Dialog open={showWaitlist} onOpenChange={setShowWaitlist}>
+                  <DialogTrigger asChild>
+                    <Button className="w-full max-w-md">Join Waitlist</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Join Our Waitlist</DialogTitle>
+                    </DialogHeader>
+                    <WaitlistForm />
+                  </DialogContent>
+                </Dialog>
                 <p className="text-muted-foreground text-xs font-medium">
                   Join 2,000+ professionals who receive our weekly job alerts
                 </p>
@@ -221,7 +223,7 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
   return (
     <div
       className={cn(
-        "group relative cursor-pointer p-4 transition-colors",
+        "group relative p-4 transition-colors",
         job.featured
           ? "before:bg-primary/10 hover:before:bg-primary/20 before:pointer-events-none before:absolute before:-inset-px before:rounded-lg"
           : "hover:bg-muted/50",
@@ -318,19 +320,26 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
                 </Badge>
               ))}
             </div>
-            <Button
-              size="sm"
-              variant={job.featured ? "default" : "outline"}
-              className="group/btn relative shrink-0 rounded-full transition-all duration-300 hover:scale-105"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <span className="flex items-center gap-1.5">
-                Apply Now
-                <ArrowRight className="size-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
-              </span>
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  size="sm"
+                  variant={job.featured ? "default" : "outline"}
+                  className="group/btn relative shrink-0 cursor-pointer rounded-full transition-all duration-300 hover:scale-105"
+                >
+                  <span className="flex items-center gap-1.5">
+                    Apply Now
+                    <ArrowRight className="size-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
+                  </span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Join Our Waitlist</DialogTitle>
+                </DialogHeader>
+                <WaitlistForm />
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
