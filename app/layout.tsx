@@ -16,22 +16,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
   openGraph: {
-    title: "AlignDesk - Find Remote Customer Service Jobs in Your Timezone",
-    description: "Discover flexible work-from-home customer service roles with international companies that match your preferred hours and location.",
+    title: 'AlignDesk - Find Remote Customer Service Jobs in Your Timezone',
+    description: 'Discover flexible work-from-home customer service roles with international companies that match your preferred hours and location.',
     url: 'https://aligndesk.com',
     siteName: 'AlignDesk',
     locale: 'en_US',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: "AlignDesk - Find Remote Customer Service Jobs in Your Timezone",
-    description: "Discover flexible work-from-home customer service roles with international companies that match your preferred hours and location.",
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
