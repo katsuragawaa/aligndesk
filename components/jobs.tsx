@@ -163,7 +163,7 @@ export function Jobs() {
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-semibold tracking-tight">
-              Remote Jobs
+              We help you to get your dream job
             </h2>
             <WaitlistDialog
               open={dialog.isOpen("header")}
@@ -280,14 +280,14 @@ function JobCard({
       className={cn(
         "group relative p-4 transition-colors",
         job.featured
-          ? "bg-primary/[0.03] hover:bg-primary/[0.05] border-l-2 border-l-primary"
+          ? "bg-primary/[0.03] hover:bg-primary/[0.05] border-l-primary border-l-2"
           : "hover:bg-muted/50",
       )}
     >
       {job.featured && (
         <div className="absolute top-4 right-4 flex items-center gap-1.5 text-xs font-medium">
           <div className="bg-primary/[0.08] hover:bg-primary/[0.12] text-primary flex items-center gap-1.5 rounded-full px-2.5 py-1 transition-colors">
-            <span className="size-1.5 rounded-full bg-primary/80" />
+            <span className="bg-primary/80 size-1.5 rounded-full" />
             Featured
           </div>
         </div>
