@@ -6,7 +6,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden py-16"
+      className="relative overflow-hidden border-y py-16"
       aria-label="About AlignDesk"
     >
       <div className="absolute inset-0 -z-10">
@@ -15,6 +15,9 @@ export function About() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_0%,transparent_100%)]" />
       </div>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2 className="mb-6 text-2xl font-semibold tracking-tight">
+          Empowering remote customer service professionals worldwide
+        </h2>
         <div
           className="grid gap-8 md:grid-cols-2"
           role="list"
