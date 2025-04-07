@@ -267,7 +267,7 @@ export function Jobs() {
                   onSubmit={alertDialog.handleSubmit}
                 >
                   <Button
-                    className="w-full max-w-md"
+                    className="w-full max-w-md cursor-pointer rounded-full"
                     onClick={handleAlertClick}
                   >
                     Join Waitlist
