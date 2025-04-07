@@ -7,7 +7,11 @@ import { Sparkles } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export function WaitlistForm() {
+type WaitlistFormProps = {
+  onSubmit?: (result: boolean) => void;
+};
+
+export function WaitlistForm({ onSubmit }: WaitlistFormProps) {
   const [email, setEmail] = useState("");
   const [interests, setInterests] = useState({
     jobSearch: false,
@@ -34,6 +38,7 @@ export function WaitlistForm() {
           jobPosting: false,
           careerGrowth: false,
         });
+        onSubmit?.(true);
       } else {
         throw new Error(result.error);
       }
@@ -41,6 +46,7 @@ export function WaitlistForm() {
       toast.error("Oops! Something went wrong", {
         description: "Please try again in a moment.",
       });
+      onSubmit?.(false);
     } finally {
       setIsSubmitting(false);
     }

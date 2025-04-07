@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { ArrowRight, Clock, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import {
@@ -127,8 +127,73 @@ const jobs = [
   },
 ];
 
+type Job = {
+  title: string;
+  location: string;
+  type: string;
+  timezone: string;
+  posted: string;
+  skills: string[];
+  salary: string;
+  company: string;
+  logo: string;
+  featured: boolean;
+};
+
+function useDialog() {
+  const [isOpen, setIsOpen] = useState(false);
+  const promiseRef = useRef<{
+    resolve: (value: boolean) => void;
+    reject: (value: boolean) => void;
+  } | null>(null);
+
+  const show = () => {
+    setIsOpen(true);
+    return new Promise<boolean>((resolve, reject) => {
+      promiseRef.current = { resolve, reject };
+    });
+  };
+
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    if (!open) {
+      promiseRef.current?.resolve(false);
+    }
+  };
+
+  const handleSubmit = (result: boolean) => {
+    setIsOpen(false);
+    promiseRef.current?.resolve(result);
+  };
+
+  return { isOpen, show, handleOpenChange, handleSubmit };
+}
+
 export function Jobs() {
-  const [showWaitlist, setShowWaitlist] = useState(false);
+  const headerDialog = useDialog();
+  const alertDialog = useDialog();
+  const jobDialogs = jobs.map(() => useDialog());
+
+  const handleHeaderClick = async () => {
+    const result = await headerDialog.show();
+    if (result) {
+      // Handle header dialog submission
+    }
+  };
+
+  const handleAlertClick = async () => {
+    const result = await alertDialog.show();
+    if (result) {
+      // Handle alert dialog submission
+    }
+  };
+
+  const handleJobClick = async (index: number) => {
+    const result = await jobDialogs[index].show();
+    if (result) {
+      // Handle job dialog submission
+    }
+  };
 
   return (
     <section id="jobs" className="relative overflow-hidden py-16">
@@ -138,31 +203,35 @@ export function Jobs() {
             <h2 className="text-2xl font-semibold tracking-tight">
               Remote Jobs
             </h2>
-            <Dialog open={showWaitlist} onOpenChange={setShowWaitlist}>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="group rounded-full"
-                >
-                  <span className="flex items-center gap-1.5">
-                    View All
-                    <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </span>
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Join Our Waitlist</DialogTitle>
-                </DialogHeader>
-                <WaitlistForm />
-              </DialogContent>
-            </Dialog>
+            <WaitlistDialog
+              open={headerDialog.isOpen}
+              onOpenChange={headerDialog.handleOpenChange}
+              onSubmit={headerDialog.handleSubmit}
+            >
+              <Button
+                variant="outline"
+                size="sm"
+                className="group rounded-full"
+                onClick={handleHeaderClick}
+              >
+                <span className="flex items-center gap-1.5">
+                  View All
+                  <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
+              </Button>
+            </WaitlistDialog>
           </div>
 
           <div className="divide-border bg-background/50 divide-y rounded-lg border backdrop-blur-sm">
             {jobs.slice(0, 2).map((job, index) => (
-              <JobCard key={index} job={job} />
+              <JobCard
+                key={index}
+                job={job}
+                showWaitlist={jobDialogs[index].isOpen}
+                setShowWaitlist={jobDialogs[index].handleOpenChange}
+                onSubmit={jobDialogs[index].handleSubmit}
+                onApplyClick={() => handleJobClick(index)}
+              />
             ))}
 
             <div className="group hover:bg-muted/30 relative p-6 transition-colors">
@@ -192,19 +261,18 @@ export function Jobs() {
                     </div>
                   </div>
                 </div>
-                <Dialog open={showWaitlist} onOpenChange={setShowWaitlist}>
-                  <DialogTrigger asChild>
-                    <Button className="w-full max-w-md">Join Waitlist</Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle className="sr-only">
-                        Join Our Waitlist
-                      </DialogTitle>
-                    </DialogHeader>
-                    <WaitlistForm />
-                  </DialogContent>
-                </Dialog>
+                <WaitlistDialog
+                  open={alertDialog.isOpen}
+                  onOpenChange={alertDialog.handleOpenChange}
+                  onSubmit={alertDialog.handleSubmit}
+                >
+                  <Button
+                    className="w-full max-w-md"
+                    onClick={handleAlertClick}
+                  >
+                    Join Waitlist
+                  </Button>
+                </WaitlistDialog>
                 <p className="text-muted-foreground text-xs font-medium">
                   Join 2,000+ professionals who receive our weekly job alerts
                 </p>
@@ -212,7 +280,14 @@ export function Jobs() {
             </div>
 
             {jobs.slice(2).map((job, index) => (
-              <JobCard key={index + 2} job={job} />
+              <JobCard
+                key={index + 2}
+                job={job}
+                showWaitlist={jobDialogs[index + 2].isOpen}
+                setShowWaitlist={jobDialogs[index + 2].handleOpenChange}
+                onSubmit={jobDialogs[index + 2].handleSubmit}
+                onApplyClick={() => handleJobClick(index + 2)}
+              />
             ))}
           </div>
         </div>
@@ -221,7 +296,21 @@ export function Jobs() {
   );
 }
 
-function JobCard({ job }: { job: (typeof jobs)[0] }) {
+type JobCardProps = {
+  job: Job;
+  showWaitlist: boolean;
+  setShowWaitlist: (open: boolean) => void;
+  onSubmit: (result: boolean) => void;
+  onApplyClick: () => void;
+};
+
+function JobCard({
+  job,
+  showWaitlist,
+  setShowWaitlist,
+  onSubmit,
+  onApplyClick,
+}: JobCardProps) {
   return (
     <div
       className={cn(
@@ -322,31 +411,51 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
                 </Badge>
               ))}
             </div>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  size="sm"
-                  variant={job.featured ? "default" : "outline"}
-                  className="group/btn relative shrink-0 cursor-pointer rounded-full transition-all duration-300 hover:scale-105"
-                >
-                  <span className="flex items-center gap-1.5">
-                    Apply Now
-                    <ArrowRight className="size-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
-                  </span>
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle className="sr-only">
-                    Join Our Waitlist
-                  </DialogTitle>
-                </DialogHeader>
-                <WaitlistForm />
-              </DialogContent>
-            </Dialog>
+            <Button
+              size="sm"
+              variant={job.featured ? "default" : "outline"}
+              className="group/btn relative shrink-0 cursor-pointer rounded-full transition-all duration-300 hover:scale-105"
+              onClick={onApplyClick}
+            >
+              <span className="flex items-center gap-1.5">
+                Apply Now
+                <ArrowRight className="size-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
+              </span>
+            </Button>
           </div>
         </div>
       </div>
+      <WaitlistDialog
+        open={showWaitlist}
+        onOpenChange={setShowWaitlist}
+        onSubmit={onSubmit}
+      >
+        <div className="sr-only">Apply Now Dialog</div>
+      </WaitlistDialog>
     </div>
+  );
+}
+
+function WaitlistDialog({
+  children,
+  open,
+  onOpenChange,
+  onSubmit,
+}: {
+  children: React.ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSubmit: (result: boolean) => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="sr-only">Join Our Waitlist</DialogTitle>
+        </DialogHeader>
+        <WaitlistForm onSubmit={onSubmit} />
+      </DialogContent>
+    </Dialog>
   );
 }
