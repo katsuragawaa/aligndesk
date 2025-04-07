@@ -61,9 +61,9 @@ export function About() {
                   Global Opportunities
                 </h2>
                 <p className="text-primary-foreground/90 text-base leading-relaxed">
-                  We're on a mission to revolutionize remote customer service
-                  hiring by connecting talented professionals with companies
-                  worldwide.
+                  We&apos;re on a mission to revolutionize remote customer
+                  service hiring by connecting talented professionals with
+                  companies worldwide.
                 </p>
               </div>
               <Button
