@@ -2,14 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-export async function joinWaitlist(formData: {
-  email: string;
-  interests: {
-    jobSearch: boolean;
-    jobPosting: boolean;
-    careerGrowth: boolean;
-  };
-}) {
+export async function joinWaitlist() {
   try {
     // TODO: Store the data in your database
     // For now, we'll just simulate a successful submission
@@ -17,7 +10,7 @@ export async function joinWaitlist(formData: {
 
     revalidatePath("/");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Failed to join waitlist" };
   }
 }

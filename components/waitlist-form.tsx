@@ -25,7 +25,7 @@ export function WaitlistForm({ onSubmit }: WaitlistFormProps) {
     setIsSubmitting(true);
 
     try {
-      const result = await joinWaitlist({ email, interests });
+      const result = await joinWaitlist();
 
       if (result.success) {
         toast.success("Welcome to the future of career growth!", {
@@ -42,7 +42,7 @@ export function WaitlistForm({ onSubmit }: WaitlistFormProps) {
       } else {
         throw new Error(result.error);
       }
-    } catch (error) {
+    } catch {
       toast.error("Oops! Something went wrong", {
         description: "Please try again in a moment.",
       });

@@ -141,59 +141,21 @@ type Job = {
 };
 
 function useDialog() {
-  const [isOpen, setIsOpen] = useState(false);
-  const promiseRef = useRef<{
-    resolve: (value: boolean) => void;
-    reject: (value: boolean) => void;
-  } | null>(null);
+  const [activeDialog, setActiveDialog] = useState<string | null>(null);
 
-  const show = () => {
-    setIsOpen(true);
-    return new Promise<boolean>((resolve, reject) => {
-      promiseRef.current = { resolve, reject };
-    });
+  const open = (id: string) => setActiveDialog(id);
+  const close = () => setActiveDialog(null);
+  const isOpen = (id: string) => activeDialog === id;
+
+  return {
+    open,
+    close,
+    isOpen,
   };
-
-  const handleOpenChange = (open: boolean) => {
-    setIsOpen(open);
-    if (!open) {
-      promiseRef.current?.resolve(false);
-    }
-  };
-
-  const handleSubmit = (result: boolean) => {
-    setIsOpen(false);
-    promiseRef.current?.resolve(result);
-  };
-
-  return { isOpen, show, handleOpenChange, handleSubmit };
 }
 
 export function Jobs() {
-  const headerDialog = useDialog();
-  const alertDialog = useDialog();
-  const jobDialogs = jobs.map(() => useDialog());
-
-  const handleHeaderClick = async () => {
-    const result = await headerDialog.show();
-    if (result) {
-      // Handle header dialog submission
-    }
-  };
-
-  const handleAlertClick = async () => {
-    const result = await alertDialog.show();
-    if (result) {
-      // Handle alert dialog submission
-    }
-  };
-
-  const handleJobClick = async (index: number) => {
-    const result = await jobDialogs[index].show();
-    if (result) {
-      // Handle job dialog submission
-    }
-  };
+  const dialog = useDialog();
 
   return (
     <section id="jobs" className="relative overflow-hidden py-16">
@@ -204,15 +166,14 @@ export function Jobs() {
               Remote Jobs
             </h2>
             <WaitlistDialog
-              open={headerDialog.isOpen}
-              onOpenChange={headerDialog.handleOpenChange}
-              onSubmit={headerDialog.handleSubmit}
+              open={dialog.isOpen("header")}
+              onOpenChange={(open) => open ? dialog.open("header") : dialog.close()}
             >
               <Button
                 variant="outline"
                 size="sm"
                 className="group rounded-full"
-                onClick={handleHeaderClick}
+                onClick={() => dialog.open("header")}
               >
                 <span className="flex items-center gap-1.5">
                   View All
@@ -227,10 +188,9 @@ export function Jobs() {
               <JobCard
                 key={index}
                 job={job}
-                showWaitlist={jobDialogs[index].isOpen}
-                setShowWaitlist={jobDialogs[index].handleOpenChange}
-                onSubmit={jobDialogs[index].handleSubmit}
-                onApplyClick={() => handleJobClick(index)}
+                showWaitlist={dialog.isOpen(`job-${index}`)}
+                setShowWaitlist={(open) => open ? dialog.open(`job-${index}`) : dialog.close()}
+                onApplyClick={() => dialog.open(`job-${index}`)}
               />
             ))}
 
@@ -262,13 +222,12 @@ export function Jobs() {
                   </div>
                 </div>
                 <WaitlistDialog
-                  open={alertDialog.isOpen}
-                  onOpenChange={alertDialog.handleOpenChange}
-                  onSubmit={alertDialog.handleSubmit}
+                  open={dialog.isOpen("alert")}
+                  onOpenChange={(open) => open ? dialog.open("alert") : dialog.close()}
                 >
                   <Button
                     className="w-full max-w-md cursor-pointer rounded-full"
-                    onClick={handleAlertClick}
+                    onClick={() => dialog.open("alert")}
                   >
                     Join Waitlist
                   </Button>
@@ -283,10 +242,9 @@ export function Jobs() {
               <JobCard
                 key={index + 2}
                 job={job}
-                showWaitlist={jobDialogs[index + 2].isOpen}
-                setShowWaitlist={jobDialogs[index + 2].handleOpenChange}
-                onSubmit={jobDialogs[index + 2].handleSubmit}
-                onApplyClick={() => handleJobClick(index + 2)}
+                showWaitlist={dialog.isOpen(`job-${index + 2}`)}
+                setShowWaitlist={(open) => open ? dialog.open(`job-${index + 2}`) : dialog.close()}
+                onApplyClick={() => dialog.open(`job-${index + 2}`)}
               />
             ))}
           </div>
@@ -300,7 +258,6 @@ type JobCardProps = {
   job: Job;
   showWaitlist: boolean;
   setShowWaitlist: (open: boolean) => void;
-  onSubmit: (result: boolean) => void;
   onApplyClick: () => void;
 };
 
@@ -308,7 +265,6 @@ function JobCard({
   job,
   showWaitlist,
   setShowWaitlist,
-  onSubmit,
   onApplyClick,
 }: JobCardProps) {
   return (
@@ -428,7 +384,6 @@ function JobCard({
       <WaitlistDialog
         open={showWaitlist}
         onOpenChange={setShowWaitlist}
-        onSubmit={onSubmit}
       >
         <div className="sr-only">Apply Now Dialog</div>
       </WaitlistDialog>
@@ -440,12 +395,10 @@ function WaitlistDialog({
   children,
   open,
   onOpenChange,
-  onSubmit,
 }: {
   children: React.ReactNode;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (result: boolean) => void;
 }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -454,7 +407,7 @@ function WaitlistDialog({
         <DialogHeader>
           <DialogTitle className="sr-only">Join Our Waitlist</DialogTitle>
         </DialogHeader>
-        <WaitlistForm onSubmit={onSubmit} />
+        <WaitlistForm onSubmit={() => onOpenChange(false)} />
       </DialogContent>
     </Dialog>
   );
