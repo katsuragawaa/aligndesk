@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ArrowRight, Bookmark, Clock, Mail, MapPin, Send } from "lucide-react";
+import { ArrowRight, Clock, Mail, MapPin, Send } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Badge } from "./ui/badge";
@@ -218,22 +218,34 @@ export function Jobs() {
 }
 
 function JobCard({ job }: { job: (typeof jobs)[0] }) {
-  const [isSaved, setIsSaved] = useState(false);
-
-  const toggleSave = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsSaved(!isSaved);
-  };
-
   return (
     <div
       className={cn(
-        "group hover:bg-muted/50 relative cursor-pointer p-4 transition-colors",
-        job.featured ? "border-l-primary border-l-4" : "",
+        "group relative cursor-pointer p-4 transition-colors",
+        job.featured
+          ? "before:bg-primary/10 hover:before:bg-primary/20 before:pointer-events-none before:absolute before:-inset-px before:rounded-lg"
+          : "hover:bg-muted/50",
       )}
     >
+      {job.featured && (
+        <div className="absolute top-4 right-4 flex items-center gap-1.5 text-xs font-medium">
+          <div className="bg-primary/10 text-primary flex items-center gap-1 rounded-full px-2 py-0.5">
+            <span className="relative flex size-1.5">
+              <span className="bg-primary absolute inline-flex size-full animate-ping rounded-full opacity-75"></span>
+              <span className="bg-primary relative inline-flex size-1.5 rounded-full"></span>
+            </span>
+            Featured
+          </div>
+        </div>
+      )}
+
       <div className="flex items-start gap-4">
-        <div className="bg-background relative h-12 w-12 shrink-0 overflow-hidden rounded-lg p-1">
+        <div
+          className={cn(
+            "relative h-12 w-12 shrink-0 overflow-hidden rounded-lg p-1",
+            job.featured ? "bg-primary/5" : "bg-background",
+          )}
+        >
           <Image
             src={job.logo}
             alt={job.company}
@@ -244,64 +256,71 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
         </div>
 
         <div className="flex-1 space-y-3">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="group-hover:text-primary text-base font-medium transition-colors">
-                  {job.title}
-                </h3>
-                {job.featured && (
-                  <Badge
-                    variant="secondary"
-                    className="bg-primary/10 text-primary text-xs"
-                  >
-                    Featured
-                  </Badge>
-                )}
-              </div>
-              <div className="text-muted-foreground flex items-center gap-3 text-sm">
-                <span>{job.company}</span>
-                <span>•</span>
-                <span className="flex items-center gap-1">
-                  <MapPin className="size-3.5" />
-                  {job.location}
-                </span>
-                <span>•</span>
-                <span>{job.posted}</span>
-              </div>
-            </div>
-
-            <Button
-              variant="ghost"
-              size="icon"
+          <div>
+            <h3
               className={cn(
-                "size-8 shrink-0 rounded-full transition-colors",
-                isSaved
-                  ? "text-amber-500 hover:text-amber-600"
-                  : "text-muted-foreground hover:text-foreground",
+                "text-base font-medium transition-colors",
+                job.featured ? "text-primary" : "group-hover:text-primary",
               )}
-              onClick={toggleSave}
-              aria-label={isSaved ? "Remove from saved jobs" : "Save job"}
             >
-              <Bookmark
-                className={cn("size-4", isSaved ? "fill-current" : "")}
-              />
-            </Button>
+              {job.title}
+            </h3>
+            <div className="text-muted-foreground flex items-center gap-3 text-sm">
+              <span>{job.company}</span>
+              <span>•</span>
+              <span className="flex items-center gap-1">
+                <MapPin className="size-3.5" />
+                {job.location}
+              </span>
+              <span>•</span>
+              <span>{job.posted}</span>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-wrap gap-2">
-              <div className="bg-primary/5 flex items-center gap-1 rounded-full px-2.5 py-1 text-xs">
-                <Clock className="text-primary size-3.5" />
-                <span>{job.timezone}</span>
-              </div>
-              <div className="bg-muted flex items-center gap-1 rounded-full px-2.5 py-1 text-xs">
-                {job.salary}
-              </div>
+          <div className="flex flex-wrap gap-2">
+            <div
+              className={cn(
+                "flex items-center gap-1 rounded-full px-2.5 py-1 text-xs",
+                job.featured
+                  ? "bg-primary/5 text-primary"
+                  : "bg-muted text-muted-foreground",
+              )}
+            >
+              <Clock className="size-3.5" />
+              <span>{job.timezone}</span>
+            </div>
+            <div
+              className={cn(
+                "rounded-full px-2.5 py-1 text-xs",
+                job.featured
+                  ? "bg-primary/5 text-primary"
+                  : "bg-muted text-muted-foreground",
+              )}
+            >
+              {job.salary}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-wrap gap-1.5">
+              {job.skills.map((skill, skillIndex) => (
+                <Badge
+                  key={skillIndex}
+                  variant="secondary"
+                  className={cn(
+                    "rounded-full text-xs transition-colors",
+                    job.featured
+                      ? "bg-primary/5 text-primary hover:bg-primary/10"
+                      : "bg-muted hover:bg-muted/80",
+                  )}
+                >
+                  {skill}
+                </Badge>
+              ))}
             </div>
             <Button
               size="sm"
-              variant="outline"
+              variant={job.featured ? "default" : "outline"}
               className="group/btn relative shrink-0 rounded-full transition-all duration-300 hover:scale-105"
               onClick={(e) => {
                 e.stopPropagation();
@@ -312,18 +331,6 @@ function JobCard({ job }: { job: (typeof jobs)[0] }) {
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
               </span>
             </Button>
-          </div>
-
-          <div className="flex flex-wrap gap-1.5">
-            {job.skills.map((skill, skillIndex) => (
-              <Badge
-                key={skillIndex}
-                variant="secondary"
-                className="bg-muted hover:bg-muted/80 rounded-full text-xs transition-colors"
-              >
-                {skill}
-              </Badge>
-            ))}
           </div>
         </div>
       </div>
