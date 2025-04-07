@@ -46,7 +46,10 @@ export function Hero() {
   const [value, setValue] = useState("");
 
   return (
-    <section className="relative overflow-hidden pt-24 pb-8">
+    <section
+      className="relative overflow-hidden pt-24 pb-8"
+      aria-label="Hero section"
+    >
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:24px_24px]" />
         <div className="from-background via-background/95 to-primary/20 absolute inset-0 bg-gradient-to-br" />
@@ -56,7 +59,11 @@ export function Hero() {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center space-y-10">
           <div className="flex w-full flex-col">
-            <div className="bg-primary/10 text-primary inline-flex items-center gap-2 self-center rounded-full px-4 py-1.5 text-sm font-medium">
+            <div
+              className="bg-primary/10 text-primary inline-flex items-center gap-2 self-center rounded-full px-4 py-1.5 text-sm font-medium"
+              role="status"
+              aria-label="Hiring status"
+            >
               <span className="relative flex h-2 w-2">
                 <span className="bg-primary absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
                 <span className="bg-primary relative inline-flex h-2 w-2 rounded-full"></span>
@@ -82,22 +89,31 @@ export function Hero() {
             </div>
           </div>
 
-          <form className="bg-background/80 focus-within:border-primary/50 focus-within:ring-primary/10 relative flex w-full items-center gap-4 rounded-full border p-1.5 shadow-lg backdrop-blur-sm transition-all focus-within:ring-4 hover:shadow-xl">
+          <form
+            className="bg-background/80 focus-within:border-primary/50 focus-within:ring-primary/10 relative flex w-full items-center gap-4 rounded-full border p-1.5 shadow-lg backdrop-blur-sm transition-all focus-within:ring-4 hover:shadow-xl"
+            role="search"
+            aria-label="Job search form"
+          >
             <div className="relative flex-[2]">
-              <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+              <Search
+                className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2"
+                aria-hidden="true"
+              />
               <Input
                 type="text"
                 placeholder="Search jobs by title, category, or company..."
                 className="h-12 border-0 pl-9 text-base shadow-none focus-visible:ring-0"
+                aria-label="Search jobs"
               />
             </div>
-            <div className="bg-border h-8 w-px" />
+            <div className="bg-border h-8 w-px" aria-hidden="true" />
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
                   variant="ghost"
                   role="combobox"
                   aria-expanded={open}
+                  aria-label="Select timezone"
                   className="hover:bg-primary/5 h-12 w-64 justify-between border-0 bg-transparent font-normal shadow-none"
                 >
                   {value ? (
@@ -108,7 +124,10 @@ export function Hero() {
                       Select timezone...
                     </span>
                   )}
-                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  <ChevronsUpDown
+                    className="ml-2 h-4 w-4 shrink-0 opacity-50"
+                    aria-hidden="true"
+                  />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="bg-background/80 w-64 border p-0 shadow-lg backdrop-blur-sm">
@@ -116,6 +135,7 @@ export function Hero() {
                   <CommandInput
                     placeholder="Search timezone..."
                     className="border-0 focus-visible:ring-0"
+                    aria-label="Search timezone"
                   />
                   <CommandEmpty className="py-6 text-center text-sm">
                     No timezone found.
@@ -130,6 +150,7 @@ export function Hero() {
                           setOpen(false);
                         }}
                         className="hover:bg-primary/5 cursor-pointer"
+                        aria-label={`Select ${timezone.label}`}
                       >
                         <Check
                           className={cn(
@@ -138,6 +159,7 @@ export function Hero() {
                               ? "opacity-100"
                               : "opacity-0",
                           )}
+                          aria-hidden="true"
                         />
                         {timezone.label}
                       </CommandItem>
@@ -149,21 +171,30 @@ export function Hero() {
             <Button
               type="submit"
               className="h-12 rounded-full px-8 font-medium shadow-sm hover:shadow-md"
+              aria-label="Search jobs"
             >
               Search
             </Button>
           </form>
 
-          <div className="flex flex-col items-center gap-6">
+          <div
+            className="flex flex-col items-center gap-6"
+            aria-label="Trusted companies"
+          >
             <p className="text-muted-foreground text-sm font-medium">
               Trusted by leading companies worldwide
             </p>
-            <div className="flex items-center gap-12">
+            <div
+              className="flex items-center gap-12"
+              role="list"
+              aria-label="Company logos"
+            >
               {["Adobe", "eBay", "Uber", "Microsoft", "Shopify"].map(
                 (company) => (
                   <div
                     key={company}
                     className="text-muted-foreground/70 hover:text-foreground text-sm font-medium transition-colors"
+                    role="listitem"
                   >
                     {company}
                   </div>

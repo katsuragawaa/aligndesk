@@ -4,17 +4,30 @@ import { Card, CardContent } from "./ui/card";
 
 export function About() {
   return (
-    <section className="relative overflow-hidden py-16">
+    <section
+      className="relative overflow-hidden py-16"
+      aria-label="About AlignDesk"
+    >
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:24px_24px] opacity-20" />
         <div className="from-background via-background/95 to-primary/10 absolute inset-0 bg-gradient-to-br" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_0%,transparent_100%)]" />
       </div>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-2">
-          <Card className="group bg-background/80 relative overflow-hidden border-none backdrop-blur-sm transition-all hover:shadow-lg">
+        <div
+          className="grid gap-8 md:grid-cols-2"
+          role="list"
+          aria-label="Key features and mission"
+        >
+          <Card
+            className="group bg-background/80 relative overflow-hidden border-none backdrop-blur-sm transition-all hover:shadow-lg"
+            role="listitem"
+          >
             <CardContent className="flex flex-col gap-8 p-10">
-              <div className="relative flex size-14 items-center justify-center">
+              <div
+                className="relative flex size-14 items-center justify-center"
+                aria-hidden="true"
+              >
                 <div className="bg-primary/10 absolute size-full rounded-full transition-transform duration-500 ease-out group-hover:scale-150" />
                 <Zap
                   className="text-primary size-8 transition-all duration-500 ease-out group-hover:scale-105"
@@ -37,16 +50,26 @@ export function About() {
               <Button
                 variant="link"
                 className="group hover:text-primary -ml-3 flex w-fit items-center gap-3"
+                aria-label="Learn more about our features"
               >
                 <span className="text-sm font-medium">Explore Features</span>
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight
+                  className="size-4 transition-transform duration-300 group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
               </Button>
             </CardContent>
           </Card>
 
-          <Card className="group bg-primary text-primary-foreground relative overflow-hidden border-none transition-all hover:shadow-lg">
+          <Card
+            className="group bg-primary text-primary-foreground relative overflow-hidden border-none transition-all hover:shadow-lg"
+            role="listitem"
+          >
             <CardContent className="flex flex-col gap-8 p-10">
-              <div className="relative flex size-14 items-center justify-center">
+              <div
+                className="relative flex size-14 items-center justify-center"
+                aria-hidden="true"
+              >
                 <div className="bg-primary-foreground/10 absolute size-full rounded-full transition-transform duration-500 ease-out group-hover:scale-150" />
                 <Globe
                   className="size-8 transition-all duration-500 ease-out group-hover:scale-105"
@@ -69,9 +92,13 @@ export function About() {
               <Button
                 variant="link"
                 className="group text-primary-foreground hover:text-primary-foreground/80 -ml-3 flex w-fit items-center gap-3"
+                aria-label="Join our mission"
               >
                 <span className="text-sm font-medium">Join Our Mission</span>
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight
+                  className="size-4 transition-transform duration-300 group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
               </Button>
             </CardContent>
           </Card>
