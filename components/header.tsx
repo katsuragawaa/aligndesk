@@ -1,7 +1,13 @@
+"use client";
+
 import { Layout } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { EmployerWaitlistDialog } from "./employer-waitlist-dialog";
 
 export default function Header() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   return (
     <header className="absolute top-0 z-50 w-full">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -18,12 +24,14 @@ export default function Header() {
           >
             Jobs
           </Link>
-          <Link
-            href="/post-job"
-            className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
+          <EmployerWaitlistDialog
+            open={isDialogOpen}
+            onOpenChange={setIsDialogOpen}
           >
-            Post a Job
-          </Link>
+            <button className="after:bg-primary hover:text-primary relative cursor-pointer text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full">
+              Post a Job
+            </button>
+          </EmployerWaitlistDialog>
           <Link
             href="#about"
             className="after:bg-primary hover:text-primary relative text-sm font-normal transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:transition-all hover:after:w-full"
