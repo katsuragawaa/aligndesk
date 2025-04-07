@@ -1,6 +1,7 @@
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
@@ -78,6 +79,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
