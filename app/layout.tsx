@@ -9,12 +9,19 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
+  minimumScale: 1,
+  userScalable: true,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 };
 
 export const metadata: Metadata = {
@@ -26,6 +33,19 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://aligndesk.com"),
   alternates: {
     canonical: "/",
+  },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "AlignDesk",
+  },
+  formatDetection: {
+    telephone: true,
+    date: true,
+    address: true,
+    email: true,
+    url: true,
   },
   openGraph: {
     title: "AlignDesk - Find Remote Customer Service Jobs in Your Timezone",
@@ -73,12 +93,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.className} antialiased`}>
+    <html lang="en" className="scroll-smooth">
+      <body
+        className={`${geistSans.className} selection:bg-primary/10 selection:text-primary min-h-screen antialiased`}
+      >
         <Header />
-        {children}
-        <Footer />
-        <Toaster />
+        <div className="flex min-h-screen flex-col">
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
+        <Toaster position="bottom-right" />
         <Analytics />
       </body>
     </html>
