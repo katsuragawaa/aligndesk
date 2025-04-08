@@ -92,7 +92,7 @@ export function Hero() {
           </div>
 
           <form
-            className="bg-background/80 focus-within:border-primary/50 focus-within:ring-primary/10 relative flex w-full flex-col items-center gap-4 rounded-full border p-1.5 shadow-lg backdrop-blur-sm transition-all focus-within:ring-4 hover:shadow-xl sm:flex-row"
+            className="sm:bg-background/80 sm:focus-within:border-primary/50 sm:focus-within:ring-primary/10 relative flex w-full flex-col items-center gap-6 sm:flex-row sm:gap-4 sm:rounded-full sm:border sm:p-1.5 sm:shadow-lg sm:backdrop-blur-sm sm:transition-all sm:focus-within:ring-4 sm:hover:shadow-xl"
             role="search"
             aria-label="Job search form"
           >
@@ -104,7 +104,7 @@ export function Hero() {
               <Input
                 type="text"
                 placeholder="Search jobs..."
-                className="h-12 border-0 pl-9 text-base shadow-none focus-visible:ring-0"
+                className="bg-background/80 h-12 border-none pl-9 text-base shadow-none focus-visible:ring-0 sm:bg-transparent"
                 aria-label="Search jobs"
               />
             </div>
@@ -119,7 +119,7 @@ export function Hero() {
                   role="combobox"
                   aria-expanded={open}
                   aria-label="Select timezone"
-                  className="hover:bg-primary/5 h-12 w-full justify-between border-0 bg-transparent font-normal shadow-none sm:w-64"
+                  className="bg-background/80 hover:bg-primary/5 h-12 w-full justify-between border-none font-normal shadow-none sm:w-64 sm:bg-transparent"
                 >
                   {value ? (
                     timezones.find((timezone) => timezone.value === value)
@@ -135,7 +135,7 @@ export function Hero() {
                   />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="bg-background/80 w-[calc(100vw-2rem)] border p-0 shadow-lg backdrop-blur-sm sm:w-64">
+              <PopoverContent className="bg-background sm:bg-background/80 w-[calc(100vw-2rem)] border p-0 shadow-lg backdrop-blur-sm sm:w-64">
                 <Command className="bg-transparent">
                   <CommandInput
                     placeholder="Search timezone..."
