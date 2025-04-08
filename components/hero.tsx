@@ -47,7 +47,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative overflow-hidden pt-24 pb-8"
+      className="relative overflow-hidden pt-16 pb-8 sm:pt-24"
       aria-label="Hero section"
     >
       <div className="absolute inset-0 -z-10">
@@ -70,15 +70,17 @@ export function Hero() {
               </span>
               Now hiring worldwide
             </div>
-            <div className="mt-8 text-4xl font-bold tracking-tight sm:text-9xl">
-              <h1 className="mr-40 text-right">FIND THE JOB</h1>
-              <h1 className="text-left">THAT FITS YOUR</h1>
-              <h1 className="from-primary to-primary/80 bg-gradient-to-r bg-clip-text text-right text-transparent">
+            <div className="mt-8 text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-9xl">
+              <h1 className="mr-0 text-center sm:mr-20 sm:text-right lg:mr-40">
+                FIND THE JOB
+              </h1>
+              <h1 className="text-center sm:text-left">THAT FITS YOUR</h1>
+              <h1 className="from-primary to-primary/80 bg-gradient-to-r bg-clip-text text-center text-transparent sm:text-right">
                 TIME ZONE
               </h1>
             </div>
-            <div className="mt-8 max-w-xl self-center text-center">
-              <p className="text-muted-foreground text-lg leading-relaxed">
+            <div className="mt-6 max-w-xl self-center text-center sm:mt-8">
+              <p className="text-muted-foreground text-base leading-relaxed sm:text-lg">
                 Discover flexible work-from-home{" "}
                 <span className="text-foreground after:bg-primary relative after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:w-full">
                   customer service
@@ -90,23 +92,26 @@ export function Hero() {
           </div>
 
           <form
-            className="bg-background/80 focus-within:border-primary/50 focus-within:ring-primary/10 relative flex w-full items-center gap-4 rounded-full border p-1.5 shadow-lg backdrop-blur-sm transition-all focus-within:ring-4 hover:shadow-xl"
+            className="bg-background/80 focus-within:border-primary/50 focus-within:ring-primary/10 relative flex w-full flex-col items-center gap-4 rounded-full border p-1.5 shadow-lg backdrop-blur-sm transition-all focus-within:ring-4 hover:shadow-xl sm:flex-row"
             role="search"
             aria-label="Job search form"
           >
-            <div className="relative flex-[2]">
+            <div className="relative w-full flex-[2]">
               <Search
                 className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2"
                 aria-hidden="true"
               />
               <Input
                 type="text"
-                placeholder="Search jobs by title, category, or company..."
+                placeholder="Search jobs..."
                 className="h-12 border-0 pl-9 text-base shadow-none focus-visible:ring-0"
                 aria-label="Search jobs"
               />
             </div>
-            <div className="bg-border h-8 w-px" aria-hidden="true" />
+            <div
+              className="bg-border hidden h-8 w-px sm:block"
+              aria-hidden="true"
+            />
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
@@ -114,7 +119,7 @@ export function Hero() {
                   role="combobox"
                   aria-expanded={open}
                   aria-label="Select timezone"
-                  className="hover:bg-primary/5 h-12 w-64 justify-between border-0 bg-transparent font-normal shadow-none"
+                  className="hover:bg-primary/5 h-12 w-full justify-between border-0 bg-transparent font-normal shadow-none sm:w-64"
                 >
                   {value ? (
                     timezones.find((timezone) => timezone.value === value)
@@ -130,7 +135,7 @@ export function Hero() {
                   />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="bg-background/80 w-64 border p-0 shadow-lg backdrop-blur-sm">
+              <PopoverContent className="bg-background/80 w-[calc(100vw-2rem)] border p-0 shadow-lg backdrop-blur-sm sm:w-64">
                 <Command className="bg-transparent">
                   <CommandInput
                     placeholder="Search timezone..."
@@ -170,7 +175,7 @@ export function Hero() {
             </Popover>
             <Button
               type="submit"
-              className="h-12 rounded-full px-8 font-medium shadow-sm hover:shadow-md"
+              className="h-12 w-full rounded-full px-8 font-medium shadow-sm hover:shadow-md sm:w-auto"
               aria-label="Search jobs"
             >
               Search
@@ -185,7 +190,7 @@ export function Hero() {
               Trusted by leading companies worldwide
             </p>
             <div
-              className="flex items-center gap-12"
+              className="flex flex-wrap items-center justify-center gap-6 sm:flex-nowrap sm:gap-12"
               role="list"
               aria-label="Company logos"
             >
