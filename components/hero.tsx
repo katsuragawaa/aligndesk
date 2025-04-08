@@ -243,32 +243,6 @@ export function Hero() {
               Search
             </Button>
           </form>
-
-          <div
-            className="flex flex-col items-center gap-6"
-            aria-label="Trusted companies"
-          >
-            <p className="text-muted-foreground text-sm font-medium">
-              Trusted by leading companies worldwide
-            </p>
-            <div
-              className="flex flex-wrap items-center justify-center gap-6 sm:flex-nowrap sm:gap-12"
-              role="list"
-              aria-label="Company logos"
-            >
-              {["Adobe", "eBay", "Uber", "Microsoft", "Shopify"].map(
-                (company) => (
-                  <div
-                    key={company}
-                    className="text-muted-foreground/70 hover:text-foreground text-sm font-medium transition-colors"
-                    role="listitem"
-                  >
-                    {company}
-                  </div>
-                ),
-              )}
-            </div>
-          </div>
         </div>
       </div>
     </section>
