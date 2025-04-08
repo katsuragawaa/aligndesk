@@ -15,7 +15,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { Check, ChevronsUpDown, Search } from "lucide-react";
+import { Check, ChevronsUpDown, Globe, Search } from "lucide-react";
 import { useState } from "react";
 
 const timezones = [
@@ -43,6 +43,7 @@ const timezones = [
 
 export function Hero() {
   const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [value, setValue] = useState("");
 
   return (
@@ -96,83 +97,144 @@ export function Hero() {
             role="search"
             aria-label="Job search form"
           >
-            <div className="relative w-full flex-[2]">
-              <Search
-                className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2"
-                aria-hidden="true"
-              />
-              <Input
-                type="text"
-                placeholder="Search jobs..."
-                className="bg-background/80 h-12 border-none pl-9 text-base shadow-none focus-visible:ring-0 sm:bg-transparent"
-                aria-label="Search jobs"
-              />
+            <div className="relative flex w-full flex-[2] items-center gap-2">
+              <div className="relative flex-1">
+                <Search
+                  className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2"
+                  aria-hidden="true"
+                />
+                <Input
+                  type="text"
+                  placeholder="Search jobs..."
+                  className="bg-background/80 h-12 border-none pl-9 text-sm shadow-md focus-visible:ring-0 sm:bg-transparent sm:shadow-none"
+                  aria-label="Search jobs"
+                />
+              </div>
+              <div className="sm:hidden">
+                <Popover open={mobileOpen} onOpenChange={setMobileOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      role="combobox"
+                      aria-expanded={mobileOpen}
+                      aria-label="Select timezone"
+                      className="bg-background/80 hover:bg-primary/5 h-12 w-12 p-0 shadow-md"
+                      size="icon"
+                    >
+                      <Globe className="h-4 w-4" aria-hidden="true" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="bg-background w-[calc(100vw-2rem)] border p-0 shadow-lg">
+                    <Command className="bg-transparent">
+                      <CommandInput
+                        placeholder="Search timezone..."
+                        className="border-0 focus-visible:ring-0"
+                        aria-label="Search timezone"
+                      />
+                      <CommandEmpty className="py-6 text-center text-sm">
+                        No timezone found.
+                      </CommandEmpty>
+                      <CommandGroup className="max-h-60 overflow-auto">
+                        {timezones.map((timezone) => (
+                          <CommandItem
+                            key={timezone.value}
+                            value={timezone.value}
+                            onSelect={(currentValue: string) => {
+                              setValue(
+                                currentValue === value ? "" : currentValue,
+                              );
+                              setMobileOpen(false);
+                            }}
+                            className="hover:bg-primary/5 cursor-pointer"
+                            aria-label={`Select ${timezone.label}`}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                value === timezone.value
+                                  ? "opacity-100"
+                                  : "opacity-0",
+                              )}
+                              aria-hidden="true"
+                            />
+                            {timezone.label}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
             <div
               className="bg-border hidden h-8 w-px sm:block"
               aria-hidden="true"
             />
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="ghost"
-                  role="combobox"
-                  aria-expanded={open}
-                  aria-label="Select timezone"
-                  className="bg-background/80 hover:bg-primary/5 h-12 w-full justify-between border-none font-normal shadow-none sm:w-64 sm:bg-transparent"
-                >
-                  {value ? (
-                    timezones.find((timezone) => timezone.value === value)
-                      ?.label
-                  ) : (
-                    <span className="text-muted-foreground">
-                      Select timezone...
-                    </span>
-                  )}
-                  <ChevronsUpDown
-                    className="ml-2 h-4 w-4 shrink-0 opacity-50"
-                    aria-hidden="true"
-                  />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="bg-background sm:bg-background/80 w-[calc(100vw-2rem)] border p-0 shadow-lg backdrop-blur-sm sm:w-64">
-                <Command className="bg-transparent">
-                  <CommandInput
-                    placeholder="Search timezone..."
-                    className="border-0 focus-visible:ring-0"
-                    aria-label="Search timezone"
-                  />
-                  <CommandEmpty className="py-6 text-center text-sm">
-                    No timezone found.
-                  </CommandEmpty>
-                  <CommandGroup className="max-h-60 overflow-auto">
-                    {timezones.map((timezone) => (
-                      <CommandItem
-                        key={timezone.value}
-                        value={timezone.value}
-                        onSelect={(currentValue: string) => {
-                          setValue(currentValue === value ? "" : currentValue);
-                          setOpen(false);
-                        }}
-                        className="hover:bg-primary/5 cursor-pointer"
-                        aria-label={`Select ${timezone.label}`}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            value === timezone.value
-                              ? "opacity-100"
-                              : "opacity-0",
-                          )}
-                          aria-hidden="true"
-                        />
-                        {timezone.label}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </Command>
-              </PopoverContent>
-            </Popover>
+            <div className="hidden sm:block">
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    role="combobox"
+                    aria-expanded={open}
+                    aria-label="Select timezone"
+                    className="bg-background/80 hover:bg-primary/5 h-12 w-full justify-between border-none font-normal shadow-none sm:w-64 sm:bg-transparent"
+                  >
+                    {value ? (
+                      timezones.find((timezone) => timezone.value === value)
+                        ?.label
+                    ) : (
+                      <span className="text-muted-foreground">
+                        Select timezone...
+                      </span>
+                    )}
+                    <ChevronsUpDown
+                      className="ml-2 h-4 w-4 shrink-0 opacity-50"
+                      aria-hidden="true"
+                    />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="bg-background sm:bg-background/80 w-[calc(100vw-2rem)] border p-0 shadow-lg backdrop-blur-sm sm:w-64">
+                  <Command className="bg-transparent">
+                    <CommandInput
+                      placeholder="Search timezone..."
+                      className="border-0 focus-visible:ring-0"
+                      aria-label="Search timezone"
+                    />
+                    <CommandEmpty className="py-6 text-center text-sm">
+                      No timezone found.
+                    </CommandEmpty>
+                    <CommandGroup className="max-h-60 overflow-auto">
+                      {timezones.map((timezone) => (
+                        <CommandItem
+                          key={timezone.value}
+                          value={timezone.value}
+                          onSelect={(currentValue: string) => {
+                            setValue(
+                              currentValue === value ? "" : currentValue,
+                            );
+                            setOpen(false);
+                          }}
+                          className="hover:bg-primary/5 cursor-pointer"
+                          aria-label={`Select ${timezone.label}`}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              value === timezone.value
+                                ? "opacity-100"
+                                : "opacity-0",
+                            )}
+                            aria-hidden="true"
+                          />
+                          {timezone.label}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </div>
             <Button
               type="submit"
               className="h-12 w-full rounded-full px-8 font-medium shadow-sm hover:shadow-md sm:w-auto"
