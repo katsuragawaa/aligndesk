@@ -158,11 +158,11 @@ export function Jobs() {
   const dialog = useDialog();
 
   return (
-    <section id="jobs" className="relative overflow-hidden py-16">
+    <section id="jobs" className="relative overflow-hidden py-16 sm:py-16">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold tracking-tight">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+            <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
               We help you to get your dream job
             </h2>
             <WaitlistDialog
@@ -174,10 +174,10 @@ export function Jobs() {
               <Button
                 variant="outline"
                 size="sm"
-                className="group rounded-full"
+                className="group w-full rounded-full sm:w-auto"
                 onClick={() => dialog.open("header")}
               >
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center justify-center gap-1.5">
                   View All
                   <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </span>
@@ -198,22 +198,22 @@ export function Jobs() {
               />
             ))}
 
-            <div className="group hover:bg-muted/30 relative p-6 transition-colors">
+            <div className="group hover:bg-muted/30 relative p-4 transition-colors sm:p-6">
               <div className="flex flex-col items-center space-y-4 text-center">
                 <div className="flex items-center gap-2">
                   <div className="bg-primary/5 text-primary ring-primary/10 group-hover:ring-primary/20 rounded-full p-2 ring-2 transition-all duration-300">
                     <Mail className="size-4" />
                   </div>
-                  <h3 className="text-xl font-semibold tracking-tight">
+                  <h3 className="text-lg font-semibold tracking-tight sm:text-xl">
                     Weekly Remote Job Alert
                   </h3>
                 </div>
                 <div className="space-y-2">
-                  <p className="text-muted-foreground max-w-md text-sm leading-relaxed">
+                  <p className="text-muted-foreground max-w-md px-2 text-sm leading-relaxed sm:px-0">
                     Get personalized remote customer service opportunities that
                     match your timezone and preferences.
                   </p>
-                  <div className="flex flex-wrap justify-center gap-1.5 text-xs">
+                  <div className="flex flex-wrap justify-center gap-1.5 px-2 text-xs sm:px-0">
                     <div className="bg-muted text-muted-foreground rounded-full px-3 py-1">
                       Curated for your timezone
                     </div>
@@ -293,7 +293,7 @@ function JobCard({
         </div>
       )}
 
-      <div className="flex items-start gap-4">
+      <div className="flex flex-col items-start gap-4 sm:flex-row">
         <div
           className={cn(
             "relative h-12 w-12 shrink-0 overflow-hidden rounded-lg",
@@ -309,7 +309,7 @@ function JobCard({
           />
         </div>
 
-        <div className="flex-1 space-y-3">
+        <div className="w-full flex-1 space-y-3">
           <div>
             <h3
               className={cn(
@@ -319,14 +319,14 @@ function JobCard({
             >
               {job.title}
             </h3>
-            <div className="text-muted-foreground flex items-center gap-3 text-sm">
+            <div className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
               <span>{job.company}</span>
-              <span>•</span>
+              <span className="hidden sm:inline">•</span>
               <span className="flex items-center gap-1">
                 <MapPin className="size-3.5" />
                 {job.location}
               </span>
-              <span>•</span>
+              <span className="hidden sm:inline">•</span>
               <span>{job.posted}</span>
             </div>
           </div>
@@ -355,7 +355,7 @@ function JobCard({
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div className="flex flex-wrap gap-1.5">
               {job.skills.map((skill, skillIndex) => (
                 <Badge
@@ -375,10 +375,10 @@ function JobCard({
             <Button
               size="sm"
               variant={job.featured ? "default" : "outline"}
-              className="group/btn relative shrink-0 cursor-pointer rounded-full transition-all duration-300 hover:scale-105"
+              className="group/btn relative w-full shrink-0 cursor-pointer rounded-full transition-all duration-300 hover:scale-105 sm:w-auto"
               onClick={onApplyClick}
             >
-              <span className="flex items-center gap-1.5">
+              <span className="flex items-center justify-center gap-1.5">
                 Apply Now
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
               </span>
