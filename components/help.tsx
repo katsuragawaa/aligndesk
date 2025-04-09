@@ -13,16 +13,19 @@ const helpTopics = [
     icon: Users,
     title: "Hiring Process",
     description: "Learn about our application steps and timeline",
+    href: "/hiring-process",
   },
   {
     icon: MessageCircle,
     title: "Common Questions",
     description: "Find answers to frequently asked questions",
+    href: "/faq",
   },
   {
     icon: Zap,
     title: "Quick Start",
     description: "Get started with your application quickly",
+    href: "/quick-start",
   },
 ];
 
@@ -70,9 +73,9 @@ export function Help() {
               </div>
             </div>
 
-            <div
+            <nav
               className="grid gap-4 md:grid-cols-3"
-              role="list"
+              role="navigation"
               aria-label="Help topics"
             >
               {helpTopics.map((topic, index) => {
@@ -81,11 +84,15 @@ export function Help() {
                   <Card
                     key={index}
                     className="group border-foreground/5 relative cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg"
-                    role="listitem"
+                    role="article"
                   >
                     <div className="from-primary/5 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     <CardContent className="p-6">
-                      <div className="flex flex-col gap-4">
+                      <a
+                        href={topic.href}
+                        className="flex flex-col gap-4"
+                        aria-label={`Learn more about ${topic.title}`}
+                      >
                         <div className="flex items-start justify-between">
                           <div
                             className="bg-primary/10 text-primary rounded-lg p-2"
@@ -104,12 +111,12 @@ export function Help() {
                             {topic.description}
                           </p>
                         </div>
-                      </div>
+                      </a>
                     </CardContent>
                   </Card>
                 );
               })}
-            </div>
+            </nav>
 
             <div className="flex items-center justify-center gap-2 pt-4">
               <HelpCircle

@@ -1,5 +1,5 @@
 import { ArrowRight, Globe, Zap } from "lucide-react";
-import { Button } from "./ui/button";
+import Link from "next/link";
 import { Card, CardContent } from "./ui/card";
 
 export function About() {
@@ -42,18 +42,18 @@ export function About() {
                 <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
                   Key Features
                 </p>
-                <h2 className="text-[2.5rem] leading-tight font-normal">
+                <h3 className="text-[2.5rem] leading-tight font-normal">
                   Smart Job Matching
-                </h2>
+                </h3>
                 <p className="text-muted-foreground text-base leading-relaxed">
                   Our advanced algorithm matches you with remote customer
                   service roles that align with your timezone, skills, and
                   preferences.
                 </p>
               </div>
-              <Button
-                variant="link"
-                className="group hover:text-primary -ml-3 flex w-fit items-center gap-3"
+              <Link
+                href="/features"
+                className="group hover:text-primary flex w-fit items-center gap-3"
                 aria-label="Learn more about our features"
               >
                 <span className="text-sm font-medium">Explore Features</span>
@@ -61,7 +61,7 @@ export function About() {
                   className="size-4 transition-transform duration-300 group-hover:translate-x-1"
                   aria-hidden="true"
                 />
-              </Button>
+              </Link>
             </CardContent>
           </Card>
 
@@ -84,18 +84,18 @@ export function About() {
                 <p className="text-primary-foreground/80 text-xs font-medium tracking-widest uppercase">
                   Our Mission
                 </p>
-                <h2 className="text-[2.5rem] leading-tight font-normal">
+                <h3 className="text-[2.5rem] leading-tight font-normal">
                   Global Opportunities
-                </h2>
+                </h3>
                 <p className="text-primary-foreground/90 text-base leading-relaxed">
                   We&apos;re on a mission to revolutionize remote customer
                   service hiring by connecting talented professionals with
                   companies worldwide.
                 </p>
               </div>
-              <Button
-                variant="link"
-                className="group text-primary-foreground hover:text-primary-foreground/80 -ml-3 flex w-fit items-center gap-3"
+              <Link
+                href="/join"
+                className="group text-primary-foreground hover:text-primary-foreground/80 flex w-fit items-center gap-3"
                 aria-label="Join our mission"
               >
                 <span className="text-sm font-medium">Join Our Mission</span>
@@ -103,7 +103,7 @@ export function About() {
                   className="size-4 transition-transform duration-300 group-hover:translate-x-1"
                   aria-hidden="true"
                 />
-              </Button>
+              </Link>
             </CardContent>
           </Card>
         </div>
