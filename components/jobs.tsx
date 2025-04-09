@@ -275,6 +275,8 @@ function JobCard({
   setShowWaitlist,
   onApplyClick,
 }: JobCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <div
       className={cn(
@@ -283,6 +285,7 @@ function JobCard({
           ? "bg-primary/[0.03] hover:bg-primary/[0.05] border-l-primary border-l-2"
           : "hover:bg-muted/50",
       )}
+      onClick={() => setIsExpanded(!isExpanded)}
     >
       {job.featured && (
         <div className="absolute top-4 right-4 flex items-center gap-1.5 text-xs font-medium">
@@ -357,26 +360,39 @@ function JobCard({
 
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div className="flex flex-wrap gap-1.5">
-              {job.skills.map((skill, skillIndex) => (
+              {job.skills
+                .slice(0, isExpanded ? undefined : 2)
+                .map((skill, skillIndex) => (
+                  <Badge
+                    key={skillIndex}
+                    variant="secondary"
+                    className={cn(
+                      "rounded-full text-xs transition-colors",
+                      job.featured
+                        ? "bg-primary/[0.08] text-primary hover:bg-primary/[0.12]"
+                        : "bg-muted hover:bg-muted/80",
+                    )}
+                  >
+                    {skill}
+                  </Badge>
+                ))}
+              {job.skills.length > 2 && !isExpanded && (
                 <Badge
-                  key={skillIndex}
                   variant="secondary"
-                  className={cn(
-                    "rounded-full text-xs transition-colors",
-                    job.featured
-                      ? "bg-primary/[0.08] text-primary hover:bg-primary/[0.12]"
-                      : "bg-muted hover:bg-muted/80",
-                  )}
+                  className="bg-muted hover:bg-muted/80 rounded-full text-xs"
                 >
-                  {skill}
+                  +{job.skills.length - 2} more
                 </Badge>
-              ))}
+              )}
             </div>
             <Button
               size="sm"
               variant={job.featured ? "default" : "outline"}
               className="group/btn relative w-full shrink-0 cursor-pointer rounded-full transition-all duration-300 hover:scale-105 sm:w-auto"
-              onClick={onApplyClick}
+              onClick={(e) => {
+                e.stopPropagation();
+                onApplyClick();
+              }}
             >
               <span className="flex items-center justify-center gap-1.5">
                 Apply Now
