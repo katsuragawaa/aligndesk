@@ -379,9 +379,12 @@ function JobCard({
               {job.skills.length > 2 && !isExpanded && (
                 <Badge
                   variant="secondary"
-                  className="bg-muted hover:bg-muted/80 rounded-full text-xs"
+                  className="bg-muted hover:bg-muted/80 hover:ring-primary/20 cursor-pointer rounded-full text-xs transition-all duration-200 hover:scale-105 hover:ring-2"
                 >
-                  +{job.skills.length - 2} more
+                  <span className="flex items-center gap-1">
+                    +{job.skills.length - 2} more
+                    <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </span>
                 </Badge>
               )}
             </div>
