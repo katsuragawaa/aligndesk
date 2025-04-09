@@ -11,28 +11,18 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
-import {
-  Briefcase,
-  ExternalLink,
-  Info,
-  Layout,
-  Menu,
-  PlusCircle,
-} from "lucide-react";
+import { ArrowRight, Layout, Menu } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { EmployerWaitlistDialog } from "./employer-waitlist-dialog";
 
 export default function Header() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("jobs");
-  const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      setIsScrollingDown(currentScrollY > lastScrollY && currentScrollY > 50);
       setLastScrollY(currentScrollY);
     };
 
@@ -100,33 +90,42 @@ export default function Header() {
                   <Separator className="my-4" />
                   <div className="flex flex-col space-y-2 px-4">
                     <DrawerClose asChild>
-                      <Link
-                        href="#jobs"
-                        className="bg-muted/50 hover:bg-muted hover:text-primary flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium transition-all"
+                      <Button
+                        variant="outline"
+                        asChild
+                        className="group w-full justify-between"
                       >
-                        <span>Browse Jobs</span>
-                        <ExternalLink className="text-muted-foreground h-4 w-4" />
-                      </Link>
+                        <Link href="#jobs">
+                          <span>Browse Jobs</span>
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        </Link>
+                      </Button>
                     </DrawerClose>
                     <EmployerWaitlistDialog
                       open={isDialogOpen}
                       onOpenChange={setIsDialogOpen}
                     >
                       <DrawerClose asChild>
-                        <button className="bg-muted/50 hover:bg-muted hover:text-primary flex w-full items-center justify-between rounded-lg px-4 py-3 text-sm font-medium transition-all">
+                        <Button
+                          variant="outline"
+                          className="group w-full justify-between"
+                        >
                           <span>Post a Job</span>
-                          <ExternalLink className="text-muted-foreground h-4 w-4" />
-                        </button>
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        </Button>
                       </DrawerClose>
                     </EmployerWaitlistDialog>
                     <DrawerClose asChild>
-                      <Link
-                        href="#about"
-                        className="bg-muted/50 hover:bg-muted hover:text-primary flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium transition-all"
+                      <Button
+                        variant="outline"
+                        asChild
+                        className="group w-full justify-between"
                       >
-                        <span>About Us</span>
-                        <ExternalLink className="text-muted-foreground h-4 w-4" />
-                      </Link>
+                        <Link href="#about">
+                          <span>About Us</span>
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        </Link>
+                      </Button>
                     </DrawerClose>
                   </div>
                   <DrawerFooter className="mt-6">
@@ -140,76 +139,6 @@ export default function Header() {
           </div>
         </nav>
       </header>
-
-      {/* Modern Minimalistic Mobile Bottom Navigation */}
-      <div
-        className={`fixed right-0 bottom-0 left-0 z-50 transition-transform duration-300 ease-in-out ${
-          isScrollingDown ? "translate-y-full" : "translate-y-0"
-        } md:hidden`}
-      >
-        <div className="border-t bg-white/80 backdrop-blur-md">
-          <nav className="mx-auto flex h-16 max-w-md items-center justify-around px-6">
-            <Link
-              href="#jobs"
-              className={`group flex min-w-[72px] flex-col items-center gap-1 p-2 transition-colors ${
-                activeTab === "jobs"
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-primary"
-              }`}
-              onClick={() => setActiveTab("jobs")}
-              aria-label="Browse Jobs"
-              aria-current={activeTab === "jobs" ? "page" : undefined}
-            >
-              <div className="relative">
-                <Briefcase className="h-5 w-5" />
-              </div>
-              <span className="text-[10px] font-medium tracking-wide">
-                Jobs
-              </span>
-            </Link>
-
-            <button
-              onClick={() => {
-                setIsDialogOpen(true);
-                setActiveTab("post");
-              }}
-              className={`group flex min-w-[72px] flex-col items-center gap-1 p-2 transition-colors ${
-                activeTab === "post"
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-primary"
-              }`}
-              aria-label="Post a Job"
-              aria-current={activeTab === "post" ? "page" : undefined}
-            >
-              <div className="relative">
-                <PlusCircle className="h-5 w-5" />
-              </div>
-              <span className="text-[10px] font-medium tracking-wide">
-                Post
-              </span>
-            </button>
-
-            <Link
-              href="#about"
-              className={`group flex min-w-[72px] flex-col items-center gap-1 p-2 transition-colors ${
-                activeTab === "about"
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-primary"
-              }`}
-              onClick={() => setActiveTab("about")}
-              aria-label="About Us"
-              aria-current={activeTab === "about" ? "page" : undefined}
-            >
-              <div className="relative">
-                <Info className="h-5 w-5" />
-              </div>
-              <span className="text-[10px] font-medium tracking-wide">
-                About
-              </span>
-            </Link>
-          </nav>
-        </div>
-      </div>
     </>
   );
 }
